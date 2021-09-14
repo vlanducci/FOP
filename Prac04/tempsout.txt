@@ -1,0 +1,12 @@
+
+-----------WELCOME TO CONVERSIONS-----------
+
+
+
+Would you like to convert another tempreture? (Y)es, (N)o, (I)nfo: 
+What type of conversion? (1-6): 
+Enter tempreture: New tempreture is -6.666666666666667
+
+Would you like to convert another tempreture? (Y)es, (N)o, (I)nfo: 
+Goodbye
+
