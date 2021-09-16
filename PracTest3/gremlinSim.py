@@ -36,15 +36,28 @@ def read_data(filename):
 
     with open(filename, "r") as fileobj:
         data = fileobj.readlines()
-    for counter, line in enumerate(data):
-        splitline = line.split(",")
+
+    counter = 0
+    for line in data:
+        line = line.split(":")
+        print(line)
         if counter == 0:
-            wlist.append(splitline[2::])
+            wlist = processlist(line)
         elif counter == 1:
-            llist.append(splitline[2::])
+            llist = processlist(line)
         elif counter == 2:
-            flist.append(splitline[2::])
-    print("\n\n" + wlist + "\n" + llist + "\n" + flist + "\n")
+            flist = processlist(line)
+        counter += 1
+
+    # for counter, line in enumerate(data):
+    #     splitline = line.split(",")
+    #     if counter == 0:
+    #         wlist = (splitline[2::])
+    #     elif counter == 1:
+    #         llist = (splitline[2::])
+    #     elif counter == 2:
+    #         flist = (splitline[2::])
+    
 
     return wlist, llist, flist
     
