@@ -9,7 +9,7 @@ README - readme file for FOP course (2021)
 
 ### Practicals
 Prac1 - Introduction
-## [Hello]("https://google.com")
+## [Hello](Prac1/)
 
 Prac2 - Strings and Lists
 
