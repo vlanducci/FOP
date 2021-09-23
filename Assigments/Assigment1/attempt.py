@@ -51,43 +51,22 @@ for i in youngPlayers:
     youngPlayersL.append(split)
 
 
-# def randomCord(listName, speed):
-#     for i in listName:
-#         loopA = True
-#         while loopA:
-#             xStep = random.randint(0,speed)
-#             yStep = random.randint(0,speed)
-#             pOrm = random.randint(0,1)
-#             x = int(i[0])
-#             y = int(i[1])
-#             if ((xStep+x)>200) and ((xStep+x)<screenWidth-200) and ((yStep+y)>200) and ((yStep+y)<screenHeight-200):
-#                 loopA = False
-#         if pOrm == 0:
-#             i[0] = str(int(i[0]) + xStep)
-#             i[1] = str(int(i[1]) + yStep)
-#         else:
-#             i[0] = str(int(i[0]) - xStep)
-#             i[1] = str(int(i[1]) - yStep)
-
-class youngPlayer():
-    def display(self):
-        screen.blit(youngPlayerImage, ((int(i[0])), (int(i[1]))))
-
-    def __init__(self, speed, jump, attract,emotion, x, y):
-        self.speed = speed
-        self.jump = jump
-        self.attract = attract
-        self.emotion = emotion
-        self.x = x
-        self.y = y
-
-    def randomCord(self, speed, x, y):
+def randomCord(listName, speed):
+    for i in listName:
         loopA = True
+        x = int(i[0])
+        y = int(i[1])
         while loopA:
             xStep = random.randint(0,speed)
             yStep = random.randint(0,speed)
             pOrm = random.randint(0,1)
-            if ((xStep+x)>200) and ((xStep+x)<screenWidth-200) and ((yStep+y)>200) and ((yStep+y)<screenHeight-200):
+            if pOrm == 0:
+                xtestStep = (int(i[0]) + xStep)
+                ytestStep = (int(i[1]) + yStep)
+            else:
+                xtestStep = (int(i[0]) - xStep)
+                ytestStep = (int(i[1]) - yStep)
+            if ((xtestStep)>200) and ((xtestStep)<screenWidth-200) and ((ytestStep)>200) and ((ytestStep)<screenHeight-200):
                 loopA = False
         if pOrm == 0:
             i[0] = str(int(i[0]) + xStep)
@@ -97,9 +76,9 @@ class youngPlayer():
             i[1] = str(int(i[1]) - yStep)
 
 
-# def youngPlayer():
-#     for i in youngPlayersL:
-#         screen.blit(youngPlayerImage, ((int(i[0])), (int(i[1]))))
+def youngPlayer():
+    for i in youngPlayersL:
+        screen.blit(youngPlayerImage, ((int(i[0])), (int(i[1]))))
 
 
 def adultPlayer():
@@ -123,9 +102,7 @@ def elderlyPlayer():
         elderlyPlayersL.remove(elderly)
         deaths.append(1)
         print(sum(deaths))
-
-hello = youngPlayer(100,0,0,0, 100, 100)
-
+    
 
 while loop:
     screen.fill((0,0,0))
@@ -156,14 +133,13 @@ while loop:
     # superimposing the text onto our button
     screen.blit(addText , (20,screenHeight-45))
 
-    hello.randomCord(100, 100, 100)
-    hello.display()
-    # adultPlayer()
-    # elderlyPlayer()
+    youngPlayer()
+    adultPlayer()
+    elderlyPlayer()
 
-    hello.randomCord(youngPlayersL, 10)
-    hello.randomCord(adultPlayersL, 10)
-    hello.randomCord(elderlyPlayersL, 10)
+    randomCord(youngPlayersL, 10)
+    randomCord(adultPlayersL, 10)
+    randomCord(elderlyPlayersL, 10)
 
     pygame.time.wait(800)
     pygame.display.update()
