@@ -147,4 +147,5 @@ while loop:
     pygame.display.update()
 
     counter += 1
+print("hello")
     
