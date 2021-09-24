@@ -17,7 +17,7 @@ elderlyPlayersL = []
 deaths = []
 screenWidth = 800
 screenHeight = 600
-boundary = 400
+boundary = 60
 counter = 0
 population = 0
 
@@ -103,7 +103,7 @@ def elderlyPlayer():
         elderlyPlayersL.remove(elderly)
         deaths.append(1)
         print(sum(deaths))
-    
+
 
 while loop:
     screen.fill((0,0,0))
@@ -134,11 +134,11 @@ while loop:
 
     screen.blit(addText , (20,screenHeight-45))
     screen.blit(counterText , (20,20))
-
+ 
     youngPlayer()
     adultPlayer()
     elderlyPlayer()
-
+    
     randomCord(youngPlayersL, 10)
     randomCord(adultPlayersL, 10)
     randomCord(elderlyPlayersL, 10)
@@ -147,5 +147,4 @@ while loop:
     pygame.display.update()
 
     counter += 1
-print("hello")
     
