@@ -2,23 +2,24 @@ from typing import Counter
 import pygame, sys
 import numpy as np
 import random
-
 from pygame.constants import SRCCOLORKEY
-
 pygame.init()
 
+
+# ----- Defining Variables ------
+loop = True
 youngPlayers = []
 youngPlayersL = []
 adultPlayers = []
 adultPlayersL = []
 elderlyPlayers = []
 elderlyPlayersL = []
-loop = True
+deaths = []
 screenWidth = 800
 screenHeight = 600
+boundary = 400
 counter = 0
 population = 0
-deaths = []
 
 
 screen = pygame.display.set_mode((screenWidth, screenHeight))
@@ -66,7 +67,7 @@ def randomCord(listName, speed):
             else:
                 xtestStep = (int(i[0]) - xStep)
                 ytestStep = (int(i[1]) - yStep)
-            if ((xtestStep)>200) and ((xtestStep)<screenWidth-200) and ((ytestStep)>200) and ((ytestStep)<screenHeight-200):
+            if ((xtestStep)>boundary) and ((xtestStep)<screenWidth-boundary) and ((ytestStep)>boundary) and ((ytestStep)<screenHeight-boundary):
                 loopA = False
         if pOrm == 0:
             i[0] = str(int(i[0]) + xStep)
@@ -106,6 +107,7 @@ def elderlyPlayer():
 
 while loop:
     screen.fill((0,0,0))
+    counterText = smallfont.render(str(counter) , True , (255,255,255))
     pygame.draw.rect(screen, (255,255,255), pygame.Rect(20,150,760,400), 2)
     mouse = pygame.mouse.get_pos()
 
@@ -130,8 +132,8 @@ while loop:
             
     pygame.draw.rect(screen,(200,200,200),[20,screenHeight-45,120,40])
 
-    # superimposing the text onto our button
     screen.blit(addText , (20,screenHeight-45))
+    screen.blit(counterText , (20,20))
 
     youngPlayer()
     adultPlayer()
