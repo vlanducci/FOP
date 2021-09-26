@@ -1,4 +1,8 @@
-from animals import Dog, Cat, Bird, Shelter
+#
+# shelter.py - uses classes to assign animals
+#
+
+from animals import Dog, Cat, Bird, Shelter, Animal
 
 print('\n#### Pet shelter program ####\n')
 
@@ -18,13 +22,16 @@ rspca.displayProcessing()
 # This code is commented out until you have implemented
 # the methods in animal.py
 
-#print('Processing animals...\n')
+print('Processing animals...\n')
 
-#rspca.makeAvailable('Dude')
-#rspca.makeAvailable('Oogie')
-#rspca.makeAvailable('Big Bird')
-#rspca.makeAdopted('Oogie')
+rspca.makeAvailable('Dude')
+rspca.makeAvailable('Oogie')
+rspca.makeAvailable('Big Bird')
+rspca.makeAdopted('Oogie')
 
-#print('\nPrinting updated list...\n')
+print('\nPrinting updated list...\n')
 
-#rspca.displayAll()
+rspca.displayAll()
+rspca.displayAvailable()
+rspca.displayAdopted()
+

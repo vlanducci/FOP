@@ -10,6 +10,7 @@ accounts = []
 def balances():
   total = 0
   for i in range(len(accounts)):
+    print(i)
     print("Name:", accounts[i].name, "\tNumber: ", accounts[i].number, "\tBalance: ", accounts[i].balance)
     total += accounts[i].balance
   print("\t\t\t\t\tTotal: ", total)
@@ -26,7 +27,7 @@ balances()
 
 
 while loop:
-  choice = input("\nSelect Transactions - \nW for Withdrawal, D for deposit, I for interest, B for balance and X for exit: ").upper()
+  choice = (input("\nSelect Transactions - \nW for Withdrawal, D for deposit, I for interest, B for balance and X for exit: ")).upper()
   
   if choice == "W":
     amount = int(input("Amount: "))

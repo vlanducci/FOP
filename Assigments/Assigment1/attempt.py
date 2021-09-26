@@ -15,6 +15,8 @@ adultPlayersL = []
 elderlyPlayers = []
 elderlyPlayersL = []
 deaths = []
+young = []
+cat = []
 screenWidth = 800
 screenHeight = 600
 boundary = 60
@@ -38,12 +40,28 @@ predText = smallfont.render('Add Predator' , True , (0,0,0))
 
 # playersNum = int(input("Amount: "))
 playersNum = 4  # for testing
+population = playersNum
+
+class YoungCat():
+
+    def __init__(self, x, y, speed, jump, attitude):
+        self.x = x
+        self.y = y
+        self.speed = speed
+        self.jump = jump
+        self.attitude = attitude
+    
+
 
 for _ in range(playersNum):
     x = random.randint(200,screenWidth-200)
     y = random.randint(200, screenHeight-200)
+    speed = random.randint(2,10)
+    jump = random.randint(2,10)
+    attitude = random.randint(0,1)
     cords = str(x) + "," + str(y)
-    youngPlayers.append(cords)
+    cat = YoungCat(x,y,speed,jump,attitude)
+    young.append(cat)
 
 for i in youngPlayers:
     split = i.split(',')
@@ -52,29 +70,26 @@ for i in youngPlayers:
     youngPlayersL.append(split)
 
 
-def randomCord(listName, speed):
-    for i in listName:
-        loopA = True
-        x = int(i[0])
-        y = int(i[1])
-        while loopA:
-            xStep = random.randint(0,speed)
-            yStep = random.randint(0,speed)
-            pOrm = random.randint(0,1)
-            if pOrm == 0:
-                xtestStep = (int(i[0]) + xStep)
-                ytestStep = (int(i[1]) + yStep)
-            else:
-                xtestStep = (int(i[0]) - xStep)
-                ytestStep = (int(i[1]) - yStep)
-            if ((xtestStep)>boundary) and ((xtestStep)<screenWidth-boundary) and ((ytestStep)>boundary) and ((ytestStep)<screenHeight-boundary):
-                loopA = False
+def randomCord(x, y, speed):
+    loopA = True
+    while loopA:
+        xStep = random.randint(0,speed)
+        yStep = random.randint(0,speed)
+        pOrm = random.randint(0,1)
         if pOrm == 0:
-            i[0] = str(int(i[0]) + xStep)
-            i[1] = str(int(i[1]) + yStep)
+            xtestStep = x + xStep
+            ytestStep = y + yStep
         else:
-            i[0] = str(int(i[0]) - xStep)
-            i[1] = str(int(i[1]) - yStep)
+            xtestStep = x - xStep
+            ytestStep = (y - yStep)
+        if ((xtestStep)>boundary) and ((xtestStep)<screenWidth-boundary) and ((ytestStep)>boundary) and ((ytestStep)<screenHeight-boundary):
+            loopA = False
+    if pOrm == 0:
+        x = str(x + xStep)
+        y = str(y + yStep)
+    else:
+        x = str(x - xStep)
+        y = str(x - yStep)
 
 
 def youngPlayer():
@@ -119,7 +134,6 @@ while loop:
             and 20 <= mouse[0] <= 20 + 140
             and screenHeight - 45 <= mouse[1] <= screenHeight - 45 + 40
         ):
-            print("hello")
             population += 1
             x = random.randint(200,screenWidth-200)
             y = random.randint(200, screenHeight-200)
@@ -135,13 +149,19 @@ while loop:
     screen.blit(addText , (20,screenHeight-45))
     screen.blit(counterText , (20,20))
  
-    youngPlayer()
-    adultPlayer()
-    elderlyPlayer()
+    for i in range(len(young)):
+        screen.blit(youngPlayerImage, ((int(young[i].x)), (int(young[i].y))))
+        randomCord(int(young[i].speed))
+
+    # youngPlayer()
+    # adultPlayer()
+    # elderlyPlayer()
     
-    randomCord(youngPlayersL, 10)
-    randomCord(adultPlayersL, 10)
-    randomCord(elderlyPlayersL, 10)
+    
+
+    # randomCord(youngPlayersL, 10)
+    # randomCord(adultPlayersL, 10)
+    # randomCord(elderlyPlayersL, 10)
 
     pygame.time.wait(800)
     pygame.display.update()
