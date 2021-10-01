@@ -3,23 +3,17 @@ import pygame, sys
 import numpy as np
 import random
 from pygame.constants import SRCCOLORKEY
+from classes import *
 pygame.init()
 
 
 # ----- Defining Variables ------
 loop = True
-youngPlayers = []
-youngPlayersL = []
-adultPlayers = []
-adultPlayersL = []
-elderlyPlayers = []
-elderlyPlayersL = []
 deaths = []
 young = []
+adult = []
+elderly = []
 cat = []
-screenWidth = 800
-screenHeight = 600
-boundary = 60
 counter = 0
 population = 0
 
@@ -40,17 +34,6 @@ predText = smallfont.render('Add Predator' , True , (0,0,0))
 
 # playersNum = int(input("Amount: "))
 playersNum = 4  # for testing
-population = playersNum
-
-class YoungCat():
-
-    def __init__(self, x, y, speed, jump, attitude):
-        self.x = x
-        self.y = y
-        self.speed = speed
-        self.jump = jump
-        self.attitude = attitude
-    
 
 
 for _ in range(playersNum):
@@ -60,67 +43,14 @@ for _ in range(playersNum):
     jump = random.randint(2,10)
     attitude = random.randint(0,1)
     cords = str(x) + "," + str(y)
-    cat = YoungCat(x,y,speed,jump,attitude)
+    cat = YoungCat(x,y,speed,jump,attitude, 0)
     young.append(cat)
-
-for i in youngPlayers:
-    split = i.split(',')
-    if ',' in split:
-        split = split.remove(',')
-    youngPlayersL.append(split)
-
-
-def randomCord(x, y, speed):
-    loopA = True
-    while loopA:
-        xStep = random.randint(0,speed)
-        yStep = random.randint(0,speed)
-        pOrm = random.randint(0,1)
-        if pOrm == 0:
-            xtestStep = x + xStep
-            ytestStep = y + yStep
-        else:
-            xtestStep = x - xStep
-            ytestStep = (y - yStep)
-        if ((xtestStep)>boundary) and ((xtestStep)<screenWidth-boundary) and ((ytestStep)>boundary) and ((ytestStep)<screenHeight-boundary):
-            loopA = False
-    if pOrm == 0:
-        x = str(x + xStep)
-        y = str(y + yStep)
-    else:
-        x = str(x - xStep)
-        y = str(x - yStep)
-
-
-def youngPlayer():
-    for i in youngPlayersL:
-        screen.blit(youngPlayerImage, ((int(i[0])), (int(i[1]))))
-
-
-def adultPlayer():
-    for i in adultPlayersL:
-        screen.blit(adultPlayerImage, ((int(i[0])), (int(i[1]))))
-    if len(youngPlayersL) > 0 and counter >= 10:
-        young = random.choice(youngPlayersL)
-        youngPlayersL.remove(young)
-        adultPlayersL.append(young)
-
-
-def elderlyPlayer():
-    for i in elderlyPlayersL:
-        screen.blit(elderlyPlayerImage, ((int(i[0])), (int(i[1]))))
-    if len(adultPlayersL) > 0 and counter >= 20:
-        adult = random.choice(adultPlayersL)
-        adultPlayersL.remove(adult)
-        elderlyPlayersL.append(adult)
-    if len(elderlyPlayersL) > 0 and counter >= 30:
-        elderly = random.choice(elderlyPlayersL)
-        elderlyPlayersL.remove(elderly)
-        deaths.append(1)
-        print(sum(deaths))
 
 
 while loop:
+    population = len(young)+len(adult)+len(elderly)
+    counter += 1
+    print(population)
     screen.fill((0,0,0))
     counterText = smallfont.render(str(counter) , True , (255,255,255))
     pygame.draw.rect(screen, (255,255,255), pygame.Rect(20,150,760,400), 2)
@@ -134,37 +64,65 @@ while loop:
             and 20 <= mouse[0] <= 20 + 140
             and screenHeight - 45 <= mouse[1] <= screenHeight - 45 + 40
         ):
-            population += 1
             x = random.randint(200,screenWidth-200)
             y = random.randint(200, screenHeight-200)
+            speed = random.randint(2,10)
+            jump = random.randint(2,10)
+            attitude = random.randint(0,1)
             cords = str(x) + "," + str(y)
-            # youngPlayers.append(cords)
-            split = cords.split(',')
-            if ',' in split:
-                split = split.remove(',')
-            youngPlayersL.append(split)
+            cat = YoungCat(x,y,speed,jump,attitude, 0)
+            young.append(cat)
             
     pygame.draw.rect(screen,(200,200,200),[20,screenHeight-45,120,40])
 
     screen.blit(addText , (20,screenHeight-45))
     screen.blit(counterText , (20,20))
- 
-    for i in range(len(young)):
+    
+    for i in range(0,len(young)):
         screen.blit(youngPlayerImage, ((int(young[i].x)), (int(young[i].y))))
-        randomCord(int(young[i].speed))
+        young[i].randomCordClass(int(young[i].x), int(young[i].y), int(young[i].speed))
+        # print("cat", str(i), young[i].x, young[i].y, young[i].speed)
 
-    # youngPlayer()
-    # adultPlayer()
-    # elderlyPlayer()
-    
-    
+    for i in range(len(adult)):
+        screen.blit(adultPlayerImage, ((int(adult[i].x)), (int(adult[i].y))))
+        adult[i].randomCordClass(int(adult[i].x), int(adult[i].y), int(adult[i].speed))
+        # print("cat", str(i), young[i].x, young[i].y, young[i].speed)
 
-    # randomCord(youngPlayersL, 10)
-    # randomCord(adultPlayersL, 10)
-    # randomCord(elderlyPlayersL, 10)
+    for i in range(0,len(elderly)):
+        screen.blit(elderlyPlayerImage, ((int(elderly[i].x)), (int(elderly[i].y))))
+        elderly[i].randomCordClass(int(elderly[i].x), int(elderly[i].y), int(elderly[i].speed))
+        # print("cat", str(i), young[i].x, young[i].y, young[i].speed)
+
+
+    for i in young:
+        if i.counter > 5 and len(young) > 0:
+            yOrn = random.randint(0,1)
+            if yOrn == 0:
+                young.remove(i)
+                cat = AdultCat(i.x,i.y,i.speed,i.jump,i.attitude,0)
+                adult.append(cat)
+    
+    for i in adult:
+        if i.counter > 5 and len(adult) > 0:
+            yOrn = random.randint(0,1)
+            if yOrn == 0:
+                adult.remove(i)
+                cat = ElderlyCat(i.x,i.y,i.speed,i.jump,i.attitude,i.counter)
+                elderly.append(cat)
+
+    for i in elderly:
+        if i.counter > 15 and len(elderly) > 0:
+            yOrn = random.randint(0,1)
+            if yOrn == 0:
+                elderly.remove(i)
+
+    for i in range(len(young)):
+        young[i].counter +=1
+    for i in range(len(adult)):
+        adult[i].counter +=1
+    for i in range(len(elderly)):
+        elderly[i].counter +=1
 
     pygame.time.wait(800)
     pygame.display.update()
-
-    counter += 1
     
