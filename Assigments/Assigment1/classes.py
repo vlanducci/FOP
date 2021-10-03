@@ -37,7 +37,7 @@ class Cats():
             else:
                 xtestStep = x - xStep
                 ytestStep = y - yStep
-            if ((xtestStep)>boundary) and ((xtestStep)<screenWidth-boundary) and ((ytestStep)>boundary) and ((ytestStep)<screenHeight-boundary):
+            if ((xtestStep)>30) and ((xtestStep)<730) and ((ytestStep)>150) and ((ytestStep)<500):
                 self.x = str(xtestStep)
                 self.y = str(ytestStep)
                 loopA = False

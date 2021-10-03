@@ -23,7 +23,10 @@ population = 0
 day = 1
 youngCap = 0
 killed = 0
-DorN = ""
+screenWidth = 800
+screenHeight = 600
+DorN = ""  # day or night
+LorD = ""  # light or dark
 
 
 def sleep(list, chance):
@@ -39,6 +42,13 @@ def predKill(list, killList):
             if ((int(list[e].x) - int(predator[i].x) < 20 and (int(list[e].x) - int(predator[i].x) > 0) or ((int(predator[i].x) - int(list[e].x) < 20) and (int(predator[i].x) - int(list[e].x) > 0))) and (int(list[e].y) - int(predator[i].y) < 20 and (int(list[e].y) - int(predator[i].x) > 0) or ((int(predator[i].y) - int(list[e].y) < 20) and (int(predator[i].y) - int(list[e].y) > 0)))):
                 if list[e] not in killList:
                     killList.append(list[e])
+
+def drawGrid():
+    blockSize = 30 #Set the size of the grid block
+    for x in range(20, 770, blockSize):
+        for y in range(150, 540, blockSize):
+            rect = pygame.Rect(x, y, blockSize, blockSize)
+            pygame.draw.rect(screen, LorD, rect, 1)
 
 
 screen = pygame.display.set_mode((screenWidth, screenHeight))
@@ -63,8 +73,8 @@ playersNum = 4  # for testing
 
 
 for _ in range(playersNum):
-    x = random.randint(200,screenWidth-200)
-    y = random.randint(200, screenHeight-200)
+    x = random.randint(30,729)
+    y = random.randint(140, 450)
     speed = random.randint(2,10)
     jump = random.randint(2,10)
     attitude = random.randint(0,1)
@@ -92,18 +102,20 @@ while loop:
         sleep(adult, 4)
         sleep(elderly, 2)
 
-
     # Setting up screen, buttons and text
     if DorN == "Night":
         screen.fill((0,0,0))
         counterText = smallfont.render(str(counter) , True , (255,255,255))
         DorNText = smallfont.render(DorN , True , (255,255,255))
-        pygame.draw.rect(screen, (255,255,255), pygame.Rect(20,150,760,400), 2)
+        # pygame.draw.rect(screen, (255,255,255), pygame.Rect(20,150,750,400), 2)
+        LorD = (255,255,255)
     if DorN == "Day":
         screen.fill((255,255,255))
         counterText = smallfont.render(str(counter) , True , (0,0,0))
         DorNText = smallfont.render(DorN , True , (0,0,0))
-        pygame.draw.rect(screen, (0,0,0), pygame.Rect(20,150,760,400), 2)
+        # pygame.draw.rect(screen, (0,0,0), pygame.Rect(20,150,760,400), 2)
+        LorD = (0,0,0)
+
 
     mouse = pygame.mouse.get_pos()
     for event in pygame.event.get():
@@ -114,8 +126,8 @@ while loop:
             and 20 <= mouse[0] <= 20 + 140
             and screenHeight - 45 <= mouse[1] <= screenHeight - 45 + 40
         ):
-            x = random.randint(200,screenWidth-200)
-            y = random.randint(200, screenHeight-200)
+            x = random.randint(30,729)
+            y = random.randint(160, 500)
             speed = random.randint(2,10)
             jump = random.randint(2,10)
             attitude = random.randint(0,1)
@@ -143,6 +155,8 @@ while loop:
     screen.blit(counterText , (20,20))
     screen.blit(DorNText , (40,20))
 
+    drawGrid()
+
 
     for i in range(len(young)):
         screen.blit(youngPlayerImage, ((int(young[i].x)), (int(young[i].y))))
@@ -152,6 +166,8 @@ while loop:
             young[i].randomCordClass(int(young[i].x), int(young[i].y), int(young[i].speed))
             young[i].sleep = False
             young[i].sleepCounter = 4
+            if young[i].x == 590 and young[i].y == 210:
+                print("hello")
         # Young Counters
         young[i].counter +=1
 
