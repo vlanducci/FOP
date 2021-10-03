@@ -7,7 +7,7 @@ import pygame, sys
 import numpy as np
 import random
 
-boundary = 60
+boundary = 200
 screenWidth = 800
 screenHeight = 600
 
@@ -50,3 +50,26 @@ class AdultCat(Cats):
 
 class ElderlyCat(Cats):
     myclass = "Elderly Cat"
+
+class Predator():
+    def __init__(self, x, y,counter):
+        self.x = x
+        self.y = y
+        self.counter = counter
+
+    def randomCordClass(self, x, y):
+        loopA = True
+        while loopA:
+            xStep = random.randint(0,20)
+            yStep = random.randint(0,20)
+            pOrm = random.randint(0,1)
+            if pOrm == 0:
+                xtestStep = x + xStep
+                ytestStep = y + yStep
+            else:
+                xtestStep = x - xStep
+                ytestStep = y - yStep
+            if ((xtestStep)>boundary) and ((xtestStep)<screenWidth-boundary) and ((ytestStep)>boundary) and ((ytestStep)<screenHeight-boundary):
+                self.x = str(xtestStep)
+                self.y = str(ytestStep)
+                loopA = False
