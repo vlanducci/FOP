@@ -16,6 +16,17 @@ elderly = []
 cat = []
 counter = 0
 population = 0
+day = 1
+youngCap = 0
+DorN = ""
+
+
+def sleep(list, chance):
+    for i in range(len(list)):
+        YorN = random.randint(0, chance)
+        if YorN == 0:
+            list[i].sleep = True
+            list[i].sleepCounter = 0
 
 
 screen = pygame.display.set_mode((screenWidth, screenHeight))
@@ -43,19 +54,43 @@ for _ in range(playersNum):
     jump = random.randint(2,10)
     attitude = random.randint(0,1)
     cords = str(x) + "," + str(y)
-    cat = YoungCat(x,y,speed,jump,attitude, 0)
+    cat = YoungCat(x,y,speed,jump,attitude, 0, 4, False)
     young.append(cat)
 
 
 while loop:
+    # Counter, Population and Day Counter and determiner 
     population = len(young)+len(adult)+len(elderly)
     counter += 1
-    print(population)
-    screen.fill((0,0,0))
-    counterText = smallfont.render(str(counter) , True , (255,255,255))
-    pygame.draw.rect(screen, (255,255,255), pygame.Rect(20,150,760,400), 2)
-    mouse = pygame.mouse.get_pos()
 
+    day += 1
+    if day > 11:
+        day = 0
+    if day <= 6:
+        DorN = "Day"
+        sleep(young, 5)
+        sleep(adult, 5)
+        sleep(elderly, 5)
+    else:
+        DorN = "Night"
+        sleep(young, 1)
+        sleep(adult, 4)
+        sleep(elderly, 2)
+
+
+    # Setting up screen, buttons and text
+    if DorN == "Night":
+        screen.fill((0,0,0))
+        counterText = smallfont.render(str(counter) , True , (255,255,255))
+        DorNText = smallfont.render(DorN , True , (255,255,255))
+        pygame.draw.rect(screen, (255,255,255), pygame.Rect(20,150,760,400), 2)
+    if DorN == "Day":
+        screen.fill((255,255,255))
+        counterText = smallfont.render(str(counter) , True , (0,0,0))
+        DorNText = smallfont.render(DorN , True , (0,0,0))
+        pygame.draw.rect(screen, (0,0,0), pygame.Rect(20,150,760,400), 2)
+
+    mouse = pygame.mouse.get_pos()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             loop = False
@@ -70,36 +105,53 @@ while loop:
             jump = random.randint(2,10)
             attitude = random.randint(0,1)
             cords = str(x) + "," + str(y)
-            cat = YoungCat(x,y,speed,jump,attitude, 0)
-            young.append(cat)
-            
+            cat = YoungCat(x,y,speed,jump,attitude, 0, 4, False)
+            young.append(cat) 
     pygame.draw.rect(screen,(200,200,200),[20,screenHeight-45,120,40])
-
     screen.blit(addText , (20,screenHeight-45))
     screen.blit(counterText , (20,20))
-    
-    for i in range(0,len(young)):
+    screen.blit(DorNText , (40,20))
+
+
+    for i in range(len(young)):
         screen.blit(youngPlayerImage, ((int(young[i].x)), (int(young[i].y))))
-        young[i].randomCordClass(int(young[i].x), int(young[i].y), int(young[i].speed))
-        # print("cat", str(i), young[i].x, young[i].y, young[i].speed)
+        if young[i].sleep == True and young[i].sleepCounter < 2:
+            young[i].sleepCounter +=1
+        else:
+            young[i].randomCordClass(int(young[i].x), int(young[i].y), int(young[i].speed))
+            young[i].sleep = False
+            young[i].sleepCounter = 4
+        # Young Counters
+        young[i].counter +=1
 
     for i in range(len(adult)):
         screen.blit(adultPlayerImage, ((int(adult[i].x)), (int(adult[i].y))))
-        adult[i].randomCordClass(int(adult[i].x), int(adult[i].y), int(adult[i].speed))
-        # print("cat", str(i), young[i].x, young[i].y, young[i].speed)
+        if adult[i].sleep == True and adult[i].sleepCounter < 2:
+            adult[i].sleepCounter +=1
+        else:
+            adult[i].randomCordClass(int(adult[i].x), int(adult[i].y), int(adult[i].speed))
+            adult[i].sleep = False
+            adult[i].sleepCounter = 4
+        # Adult Counters
+        adult[i].counter +=1
 
     for i in range(0,len(elderly)):
         screen.blit(elderlyPlayerImage, ((int(elderly[i].x)), (int(elderly[i].y))))
-        elderly[i].randomCordClass(int(elderly[i].x), int(elderly[i].y), int(elderly[i].speed))
-        # print("cat", str(i), young[i].x, young[i].y, young[i].speed)
-
+        if elderly[i].sleep == True and elderly[i].sleepCounter < 2:
+            elderly[i].sleepCounter +=1
+        else:
+            elderly[i].randomCordClass(int(elderly[i].x), int(elderly[i].y), int(elderly[i].speed))
+            elderly[i].sleep = False
+            elderly[i].sleepCounter = 4
+        # Elderly Counters
+        elderly[i].counter +=1
 
     for i in young:
         if i.counter > 5 and len(young) > 0:
             yOrn = random.randint(0,1)
             if yOrn == 0:
                 young.remove(i)
-                cat = AdultCat(i.x,i.y,i.speed,i.jump,i.attitude,0)
+                cat = AdultCat(i.x,i.y,i.speed,i.jump,i.attitude,0,4, False)
                 adult.append(cat)
     
     for i in adult:
@@ -107,7 +159,7 @@ while loop:
             yOrn = random.randint(0,1)
             if yOrn == 0:
                 adult.remove(i)
-                cat = ElderlyCat(i.x,i.y,i.speed,i.jump,i.attitude,i.counter)
+                cat = ElderlyCat(i.x,i.y,i.speed,i.jump,i.attitude,i.counter,4, False)
                 elderly.append(cat)
 
     for i in elderly:
@@ -115,13 +167,6 @@ while loop:
             yOrn = random.randint(0,1)
             if yOrn == 0:
                 elderly.remove(i)
-
-    for i in range(len(young)):
-        young[i].counter +=1
-    for i in range(len(adult)):
-        adult[i].counter +=1
-    for i in range(len(elderly)):
-        elderly[i].counter +=1
 
     pygame.time.wait(800)
     pygame.display.update()
