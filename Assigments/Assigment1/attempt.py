@@ -25,6 +25,10 @@ youngCap = 0
 killed = 0
 screenWidth = 800
 screenHeight = 600
+closenessRange = 10
+birthCounter = 0
+DARK = (53, 80, 112)
+DARKLIGHT = (146, 182, 177)
 DorN = ""  # day or night
 LorD = ""  # light or dark
 
@@ -42,6 +46,19 @@ def predKill(list, killList):
             if ((int(list[e].x) - int(predator[i].x) < 20 and (int(list[e].x) - int(predator[i].x) > 0) or ((int(predator[i].x) - int(list[e].x) < 20) and (int(predator[i].x) - int(list[e].x) > 0))) and (int(list[e].y) - int(predator[i].y) < 20 and (int(list[e].y) - int(predator[i].x) > 0) or ((int(predator[i].y) - int(list[e].y) < 20) and (int(predator[i].y) - int(list[e].y) > 0)))):
                 if list[e] not in killList:
                     killList.append(list[e])
+
+def newCats(randCoord, xCoord, yCoord):
+    speed = random.randint(2,10)
+    jump = random.randint(2,10)
+    attitude = random.randint(0,1)
+    if randCoord == "yes":
+        x = random.randint(30,729)
+        y = random.randint(160, 500)
+        cat = YoungCat(x,y,speed,jump,attitude, 0, 4, False)
+    else:
+        cat = YoungCat(xCoord,yCoord,speed,jump,attitude, 0, 4, False) 
+
+    young.append(cat) 
 
 def drawGrid():
     blockSize = 30 #Set the size of the grid block
@@ -62,33 +79,21 @@ predatorImage = pygame.image.load("imposter.png")
 predatorImage = pygame.transform.scale(predatorImage, (50, 50))
 
 
-# Buttons
+# Buttons Settings
 smallfont = pygame.font.SysFont('Corbel',35)
-addText = smallfont.render('Add Cat' , True , (0,0,0))
-predText = smallfont.render('Add Predator' , True , (0,0,0))
-
 
 # playersNum = int(input("Amount: "))
 playersNum = 4  # for testing
 
-
 for _ in range(playersNum):
-    x = random.randint(30,729)
-    y = random.randint(140, 450)
-    speed = random.randint(2,10)
-    jump = random.randint(2,10)
-    attitude = random.randint(0,1)
-    cords = str(x) + "," + str(y)
-    cat = YoungCat(x,y,speed,jump,attitude, 0, 4, False)
-    young.append(cat)
-
+    newCats("yes", 0, 0)
 
 while loop:
     # Counter, Population and Day Counter and determiner 
     population = len(young)+len(adult)+len(elderly)
     counter += 1
-
     day += 1
+
     if day > 11:
         day = 0
     if day <= 6:
@@ -101,22 +106,21 @@ while loop:
         sleep(young, 1)
         sleep(adult, 4)
         sleep(elderly, 2)
+    
+    if birthCounter > 0:
+        birthCounter -= 1
+        print(birthCounter)
 
     # Setting up screen, buttons and text
     if DorN == "Night":
-        screen.fill((0,0,0))
-        counterText = smallfont.render(str(counter) , True , (255,255,255))
-        DorNText = smallfont.render(DorN , True , (255,255,255))
-        # pygame.draw.rect(screen, (255,255,255), pygame.Rect(20,150,750,400), 2)
-        LorD = (255,255,255)
+        DARK = (53, 80, 112)
+        DARKLIGHT = (146, 182, 177)
+
     if DorN == "Day":
-        screen.fill((255,255,255))
-        counterText = smallfont.render(str(counter) , True , (0,0,0))
-        DorNText = smallfont.render(DorN , True , (0,0,0))
-        # pygame.draw.rect(screen, (0,0,0), pygame.Rect(20,150,760,400), 2)
-        LorD = (0,0,0)
+        DARKLIGHT = (243, 217, 221)
+        DARK = (199, 130, 131)
 
-
+    # Buttons Screen Interaction
     mouse = pygame.mouse.get_pos()
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -126,14 +130,7 @@ while loop:
             and 20 <= mouse[0] <= 20 + 140
             and screenHeight - 45 <= mouse[1] <= screenHeight - 45 + 40
         ):
-            x = random.randint(30,729)
-            y = random.randint(160, 500)
-            speed = random.randint(2,10)
-            jump = random.randint(2,10)
-            attitude = random.randint(0,1)
-            cords = str(x) + "," + str(y)
-            cat = YoungCat(x,y,speed,jump,attitude, 0, 4, False)
-            young.append(cat) 
+            newCats("yes",0,0)
         if (
             event.type == pygame.MOUSEBUTTONDOWN
             and 150 <= mouse[0] <= 150 + 140
@@ -143,20 +140,29 @@ while loop:
             y = random.randint(200, screenHeight-200)
             pred = Predator(x,y,0)
             predator.append(pred) 
-    # Add Button
-    pygame.draw.rect(screen,(200,200,200),[20,screenHeight-45,120,40])
+
+    screen.fill((DARK))
+    counterText = smallfont.render(str(counter) , True , (DARKLIGHT))
+    DorNText = smallfont.render(DorN , True , (DARKLIGHT))
+    # pygame.draw.rect(screen, (255,255,255), pygame.Rect(20,150,750,400), 2)
+    LorD = (DARKLIGHT)
+
+    # Button
+    addText = smallfont.render('Add Cat' , True , (DARK))
+    predText = smallfont.render('Add Predator' , True , (DARK))
+
+    # Button Display
+    pygame.draw.rect(screen,(DARKLIGHT),[20,screenHeight-45,120,40])
     screen.blit(addText , (20,screenHeight-45))
 
     # Predator Button
-    pygame.draw.rect(screen,(200,200,200),[150,screenHeight-45,190,40])
+    pygame.draw.rect(screen,(DARKLIGHT),[150,screenHeight-45,190,40])
     screen.blit(predText , (150,screenHeight-45))
 
-    # Other Text
+    # Other Text and Displays
     screen.blit(counterText , (20,20))
     screen.blit(DorNText , (40,20))
-
     drawGrid()
-
 
     for i in range(len(young)):
         screen.blit(youngPlayerImage, ((int(young[i].x)), (int(young[i].y))))
@@ -179,9 +185,21 @@ while loop:
             adult[i].randomCordClass(int(adult[i].x), int(adult[i].y), int(adult[i].speed))
             adult[i].sleep = False
             adult[i].sleepCounter = 4
+        
+        if i+1 < len(adult):
+            oldx = int(adult[i].x)
+            newx = int(adult[i+1].x)
+            oldy = int(adult[i].y)
+            newy = int(adult[i+1].y)
+            if ((oldx - newx < closenessRange and oldx - newx > 0) or (oldy - newy < closenessRange) and (oldy - newy < 0)) and (oldy - newy < closenessRange and oldy - newy > 0) or ((newy - oldy < closenessRange) and (newy - oldy > 0)):
+                if birthCounter == 0:
+                    newCats("no", oldx, oldy)
+                    print("new cat")
+                    birthCounter = 2
+
+
         # Adult Counters
         adult[i].counter +=1
-
     for i in range(len(elderly)):
         screen.blit(elderlyPlayerImage, ((int(elderly[i].x)), (int(elderly[i].y))))
         if elderly[i].sleep == True and elderly[i].sleepCounter < 2:
@@ -232,6 +250,7 @@ while loop:
         if i.counter >= 10:
             predator.remove(i)
 
+    # Error Preventing 
     for i in youngRemove:
         try:
             young.remove(i)
@@ -253,6 +272,6 @@ while loop:
             print("Not in list")
         elderlyRemove.remove(i)
 
-    pygame.time.wait(800)
+    pygame.time.wait(700)
     pygame.display.update()
     
