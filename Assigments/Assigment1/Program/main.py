@@ -161,6 +161,12 @@ def drawGrid():
             rect = pygame.Rect(x, y, blockSize, blockSize)
             pygame.draw.rect(screen, LorD, rect, 1)
 
+# Gets hill x and y from file
+fileobj = open('terrain.txt','r')
+for line in fileobj:
+    split = line.split(",")
+    hillLocation = [int(split[0]),int(split[1])]
+fileobj.close()
 
 # ----- Main Program ------ #
 while loop1:
@@ -294,7 +300,7 @@ while loop:
     screen.blit(DorNText , (200,20))
     drawGrid()
     # Draw circles for food and hill
-    pygame.draw.circle(screen,(84, 95, 102),[200,250], 60)
+    pygame.draw.circle(screen,(84, 95, 102),hillLocation, 60)
     for i in range(len(food)):
         pygame.draw.circle(screen,(142, 208, 129),[food[i].x,food[i].y], 10)
     for i in range(len(bed)):
