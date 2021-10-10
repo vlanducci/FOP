@@ -12,7 +12,7 @@ screenWidth = 800
 screenHeight = 600
 
 class Cats():
-    def __init__(self, x, y, speed, attitude, counter, sleepCounter, sleep, hungry, hungryCounter, birthCounter):
+    def __init__(self, x, y, speed, attitude, counter, sleepCounter, sleep, hungry, hungryCounter, birthCounter, closest, closestDone):
         self.x = x
         self.y = y
         self.speed = speed
@@ -23,15 +23,24 @@ class Cats():
         self.hungry = hungry
         self.hungryCounter = hungryCounter
         self.birthCounter = birthCounter
+        self.closest = closest
+        self.closestDone = closestDone
+
 
     def randomCordClass(self, x, y, speed):
         loopA = True
+        if (int(self.speed) <= 1):
+            self.speed = 3
         while loopA:
             if self.sleep == True:
                 loopA = False
-
-            xStep = random.randint(0,speed)
-            yStep = random.randint(0,speed)
+            if (((x - 200 < 60 and (x - 200) > 0) or ((200 - x < 60) and (200 - x > 0))) and (y - 250 < 60 and (y - 200 > 0) or ((250 - y < 20) and 250 - y > 0))):
+                speed = 1
+                xStep = speed
+                yStep = speed
+            else:
+                xStep = random.randint(2,speed)
+                yStep = random.randint(2,speed)
             pOrm = random.randint(0,1)
             if pOrm == 0:
                 xtestStep = x + xStep
@@ -72,9 +81,7 @@ class Predator():
                 xtestStep = x - xStep
                 ytestStep = y - yStep
 
-            if (((xtestStep - 200 < 60 and (xtestStep - 200) > 0) or ((200 - xtestStep < 60) and (200 - x > 0))) and (ytestStep - 250 < 60 and ytestStep - 200 > 0) or ((250 - ytestStep < 20) and 250 - ytestStep > 0)):
-                print("in water")
-            elif ((xtestStep)>boundary) and ((xtestStep)<screenWidth-boundary) and ((ytestStep)>boundary) and ((ytestStep)<screenHeight-boundary):
+            if ((xtestStep)>boundary) and ((xtestStep)<screenWidth-boundary) and ((ytestStep)>boundary) and ((ytestStep)<screenHeight-boundary):
                 self.x = str(xtestStep)
                 self.y = str(ytestStep)
                 loopA = False
