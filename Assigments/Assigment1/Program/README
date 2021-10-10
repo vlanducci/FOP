@@ -1,0 +1,27 @@
+## Synopsis
+
+Assessment 1 of Fundamentals of Programming COMP1005/500i5
+
+Cat Simulation - Simulation of cats and there behavior
+
+## Contents
+
+README - readme file for Assessment 1
+
+Classes:
+classes.py - Contains the Classes for our cats and involved functions
+
+Programs:
+main.py - Contains the code for the execution of the cat simulation, including visuals, cats and there movement/behavior
+
+## Dependencies
+
+pygame - pip install pygame - https://www.pygame.org/
+sys
+numpy
+random
+typing
+
+## Version information
+
+<10/10/2021> - initial version of Assessment 1 programs

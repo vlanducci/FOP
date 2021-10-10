@@ -1,5 +1,6 @@
 #
-#
+# classes.py - Contains the Classes for our cats and involved functions
+# By Viola Landucci
 #
 
 from typing import Counter
@@ -7,10 +8,16 @@ import pygame, sys
 import numpy as np
 import random
 
+
+# ----- Defining Variables ------ #
 boundary = 200
 screenWidth = 800
 screenHeight = 600
 
+
+# ----- Classes ------ #
+
+# main class, contains everything common across all classes
 class Cats():
     def __init__(self, x, y, speed, attitude, counter, sleepCounter, sleep, hungry, hungryCounter, birthCounter, closest, closestDone):
         self.x = x
@@ -26,7 +33,7 @@ class Cats():
         self.closest = closest
         self.closestDone = closestDone
 
-
+    # function that sets cats next random location depending on speed and location
     def randomCordClass(self, x, y, speed):
         loopA = True
         if (int(self.speed) <= 1):
@@ -48,11 +55,13 @@ class Cats():
             else:
                 xtestStep = x - xStep
                 ytestStep = y - yStep
-            if ((xtestStep)>30) and ((xtestStep)<730) and ((ytestStep)>150) and ((ytestStep)<500):
+            if ((xtestStep)>30) and ((xtestStep)<730) and ((ytestStep)>150) and ((ytestStep)<500):  # checks new x and y is in location is within boundary before setting
                 self.x = str(xtestStep)
                 self.y = str(ytestStep)
                 loopA = False
 
+
+# ----- Sub-Classes ------ #
 class YoungCat(Cats):
     myclass = "Young Cat"
 
@@ -87,6 +96,11 @@ class Predator():
                 loopA = False
 
 class Food():
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+
+class Bed():
     def __init__(self, x, y):
         self.x = x
         self.y = y

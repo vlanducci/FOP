@@ -1,3 +1,8 @@
+#
+# main.py - Contains the code for the execution of the cat simulation, including visuals, cats and there movement/behavior
+# By Viola Landucci
+#
+
 from typing import Counter
 import pygame, sys
 import numpy as np
@@ -5,7 +10,6 @@ import random
 from pygame.constants import SRCCOLORKEY
 from classes import *
 pygame.init()
-import math
 
 
 # ----- Defining Variables ------ #
@@ -23,6 +27,9 @@ elderlyRemove = []
 totalFoodx = []
 totalFoody = []
 food = []
+bed = []
+totalBedx = []
+totalBedy = []
 counter = 0
 population = 0
 day = 1
@@ -52,6 +59,11 @@ predatorImage = pygame.image.load("Images/PredatorImage.PNG")
 predatorImage = pygame.transform.scale(predatorImage, (30, 30))
 
 
+# ----- Button Settings ------ #
+smallfont = pygame.font.SysFont('Corbel',35)
+smallsmallfont = pygame.font.SysFont('Corbel',20)
+
+
 # ----- Setup and Functions ------ #
 
 # Setting up food random coordinates
@@ -60,6 +72,12 @@ for i in range(4):
     y = random.randint(160, 500)
     newFood = Food(x,y)
     food.append(newFood)
+
+for i in range(4):
+    x = random.randint(30,729)
+    y = random.randint(160, 500)
+    newBed = Bed(x,y)
+    bed.append(newBed)
 
 # function for seeing if cat will sleep
 def sleep(list, chance):
@@ -93,12 +111,12 @@ def eatFood(list):
         list.hungryCounter = 22
     else:
         # If hungry, make speed 10 unless in hill
-        if abs((int(closest[1])-int(list.y))) != 0: 
-            if (((int(list.x) - 200 < 60 and (int(list.x) - 200) > 0) or ((200 - int(list.x) < 60) and (200 - int(list.x) > 0))) and (int(list.y) - 250 < 60 and (int(list.y) - 200 > 0) or ((250 - int(list.y) < 20) and 250 - int(list.y) > 0))):
-                None
-            else:
-                list.speed = 10
+        if (((int(list.x) - 200 < 60 and (int(list.x) - 200) > 0) or ((200 - int(list.x) < 60) and (200 - int(list.x) > 0))) and (int(list.y) - 250 < 60 and (int(list.y) - 200 > 0) or ((250 - int(list.y) < 20) and 250 - int(list.y) > 0))):
+            None
+        else:
+            list.speed = 10
 
+        if abs((int(closest[1])-int(list.y))) != 0: 
             try:
                 list.x = int(list.x) + ((int(closest[0])-int(list.x))/abs((int(closest[0])-int(list.x))))*int(list.speed)                 
             except ZeroDivisionError as err:
@@ -109,6 +127,17 @@ def eatFood(list):
                 list.y = int(list.y) + ((int(closest[1])-int(list.y))/abs((int(closest[1])-int(list.y))))*int(list.speed)
             except ZeroDivisionError as err:
                 None
+
+# checks if cat is on bed and if so, will sleep for short amount of time
+def checkBed(list):
+    for i in range(len(bed)):
+        if (((int(list.x) - 200 < 60 and (int(list.x) - 200) > 0) or ((200 - int(list.x) < 60) and (200 - int(list.x) > 0))) and (int(list.y) - 250 < 60 and (int(list.y) - 200 > 0) or ((250 - int(list.y) < 20) and 250 - int(list.y) > 0))):
+            None
+        else:
+            list.speed = 10
+        if ((int(list.x) - int(bed[i].x) < 20 and (int(list.x) - int(bed[i].x) > 0) or ((int(bed[i].x) - int(list.x) < 20) and (int(bed[i].x) - int(list.x) > 0))) and (int(list.y) - int(bed[i].y) < 20 and (int(list.y) - int(bed[i].x) > 0) or ((int(bed[i].y) - int(list.y) < 20) and (int(bed[i].y) - int(list.y) > 0)))):
+            list.sleep = True
+            
 
 # function for making new cat sometimes when two adults meet
 def newCats(randCoord, xCoord, yCoord):
@@ -131,10 +160,6 @@ def drawGrid():
         for y in range(150, 540, blockSize):
             rect = pygame.Rect(x, y, blockSize, blockSize)
             pygame.draw.rect(screen, LorD, rect, 1)
-
-
-# ----- Button Settings ------ #
-smallfont = pygame.font.SysFont('Corbel',35)
 
 
 # ----- Main Program ------ #
@@ -211,11 +236,10 @@ while loop:
             and 150 <= mouse[0] <= 150 + 140
             and screenHeight - 45 <= mouse[1] <= screenHeight - 45 + 40
         ):
-            if len(predator) <=4:
-                x = random.randint(40,screenWidth-200)
-                y = random.randint(200, screenHeight-200)
-                pred = Predator(x,y,0)
-                predator.append(pred) 
+            x = random.randint(40,screenWidth-200)
+            y = random.randint(200, screenHeight-200)
+            pred = Predator(x,y,0)
+            predator.append(pred) 
 
     # Setting Up Screen
     screen.fill((DARK))
@@ -223,6 +247,35 @@ while loop:
     counterText = smallfont.render(daysText , True , (DARKLIGHT))
     DorNText = smallfont.render(DorN , True , (DARKLIGHT))
     LorD = (DARKLIGHT)
+
+    # Key
+    keyText = smallfont.render("Key:" , True , (DARKLIGHT))
+    keyText1 = smallsmallfont.render("- Orange Cat: Young Cat" , True , (DARKLIGHT))
+    keyText2 = smallsmallfont.render("- Brown Cat: Adult Cat" , True , (DARKLIGHT))
+    keyText3 = smallsmallfont.render("- Gray Cat: Elderly Cat" , True , (DARKLIGHT))
+    keyText4 = smallsmallfont.render("- Green Circle: Food" , True , (DARKLIGHT))
+    keyText5 = smallsmallfont.render("- Cream Circle: Bed" , True , (DARKLIGHT))
+    keyText7 = smallsmallfont.render("- Red Snake: Predator" , True , (DARKLIGHT))
+    keyText6 = smallsmallfont.render("- Gray Circle: Hill" , True , (DARKLIGHT))
+    screen.blit(keyText , (screenWidth-400,20))
+    screen.blit(keyText1 , (screenWidth-400,60))
+    screen.blit(keyText2 , (screenWidth-400,80))
+    screen.blit(keyText3 , (screenWidth-400,100))
+    screen.blit(keyText4 , (screenWidth-200,60))
+    screen.blit(keyText5 , (screenWidth-200,80))
+    screen.blit(keyText6 , (screenWidth-200,100))
+    screen.blit(keyText7 , (screenWidth-400,120))
+
+    # Display Stats
+    stat1 = smallsmallfont.render(("- Young Cats: " + str(len(young))) , True , (DARKLIGHT))
+    stat2 = smallsmallfont.render(("- Adult Cats: " + str(len(adult))) , True , (DARKLIGHT))
+    stat3 = smallsmallfont.render(("- Elderly Cats: " + str(len(elderly))) , True , (DARKLIGHT))
+    stat4 = smallsmallfont.render(("- Predator: " + str(len(predator))) , True , (DARKLIGHT))
+    screen.blit(stat1 , (20,70))
+    screen.blit(stat2 , (20,90))
+    screen.blit(stat3 , (20,110))
+    screen.blit(stat4 , (180,110))
+
 
     # Button
     addText = smallfont.render('Add Cat' , True , (DARK))
@@ -244,10 +297,12 @@ while loop:
     pygame.draw.circle(screen,(84, 95, 102),[200,250], 60)
     for i in range(len(food)):
         pygame.draw.circle(screen,(142, 208, 129),[food[i].x,food[i].y], 10)
-
+    for i in range(len(bed)):
+        pygame.draw.circle(screen,(224, 208, 193),[bed[i].x,bed[i].y], 10)
 
     for i in range(len(young)):
         screen.blit(youngPlayerImage, ((int(young[i].x)), (int(young[i].y))))
+        checkBed(young[i])
         # Checks if hungryCounter is 0 and if so set so cat is hungry
         if young[i].hungryCounter == 0:
             young[i].hungry = True
@@ -294,6 +349,7 @@ while loop:
     # Comments are same as the ones above for young cats
     for i in range(len(adult)):
         screen.blit(adultPlayerImage, ((int(adult[i].x)), (int(adult[i].y))))
+        checkBed(adult[i])
         if adult[i].hungryCounter == 0:
             adult[i].hungry = True
         else:
@@ -350,6 +406,7 @@ while loop:
     # Comments are same as the ones for young cats except when elderly cat reaches is minimum max age if dose not move on to new cat, it dies 
     for i in range(len(elderly)):
         screen.blit(elderlyPlayerImage, ((int(elderly[i].x)), (int(elderly[i].y))))
+        checkBed(elderly[i])
         if elderly[i].hungryCounter == 0:
             elderly[i].hungry = True
         else:
