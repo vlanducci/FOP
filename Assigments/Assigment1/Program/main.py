@@ -250,7 +250,7 @@ while loop:
         ):
             x = random.randint(40, screenWidth-200)
             y = random.randint(200, screenHeight-200)
-            pred = Predator(x, y, 0)
+            pred = Predator(x, y, 0, 20)
             predator.append(pred)
 
     # Setting Up Screen
@@ -455,7 +455,7 @@ while loop:
     # Code for predator
     for i in range(len(predator)):
         screen.blit(predatorImage, ((int(predator[i].x)), (int(predator[i].y))))
-        predator[i].randomCordClassP(int(predator[i].x), int(predator[i].y))
+        predator[i].randomCordClass(int(predator[i].x), int(predator[i].y), 20)
 
         # Predator Counters
         predator[i].counter += 1

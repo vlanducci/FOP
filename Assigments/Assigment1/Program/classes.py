@@ -70,29 +70,17 @@ class AdultCat(Cats):
 class ElderlyCat(Cats):
     myclass = "Elderly Cat"
 
-class Predator():
-    def __init__(self, x, y, counter):
+class Predator(Cats):
+    myclass = "Predator"
+    def __init__(self, x, y, counter, speed):
         self.x = x
         self.y = y
         self.counter = counter
+        self.speed = speed
+        self.sleep = False
 
-    def randomCordClassP(self, x, y):
-        loopA = True
-        xStep = 10
-        yStep = 10
-        while loopA:
-            pOrm = random.randint(0, 1)
-            if pOrm == 0:
-                xtestStep = x + xStep
-                ytestStep = y + yStep
-            else:
-                xtestStep = x - xStep
-                ytestStep = y - yStep
-
-            if ((xtestStep)>boundary) and ((xtestStep)<screenWidth-boundary) and ((ytestStep)>boundary) and ((ytestStep)<screenHeight-boundary):
-                self.x = str(xtestStep)
-                self.y = str(ytestStep)
-                loopA = False
+    def randomCordClass(self, x, y, speed):
+        super().randomCordClass(x, y, speed)
 
 class Food():
     def __init__(self, x, y):
