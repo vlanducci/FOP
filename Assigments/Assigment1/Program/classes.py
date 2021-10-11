@@ -19,11 +19,10 @@ screenHeight = 600
 
 # main class, contains everything common across all classes
 class Cats():
-    def __init__(self, x, y, speed, attitude, counter, sleepCounter, sleep, hungry, hungryCounter, birthCounter, closest, closestDone):
+    def __init__(self, x, y, speed, counter, sleepCounter, sleep, hungry, hungryCounter, birthCounter, closest, closestDone):
         self.x = x
         self.y = y
         self.speed = speed
-        self.attitude = attitude
         self.counter = counter
         self.sleepCounter = sleepCounter
         self.sleep = sleep
@@ -46,8 +45,8 @@ class Cats():
                 xStep = speed
                 yStep = speed
             else:
-                xStep = random.randint(2,speed)
-                yStep = random.randint(2,speed)
+                xStep = random.randint(2, speed)
+                yStep = random.randint(2, speed)
             pOrm = random.randint(0,1)
             if pOrm == 0:
                 xtestStep = x + xStep
@@ -72,17 +71,17 @@ class ElderlyCat(Cats):
     myclass = "Elderly Cat"
 
 class Predator():
-    def __init__(self, x, y,counter):
+    def __init__(self, x, y, counter):
         self.x = x
         self.y = y
         self.counter = counter
 
-    def randomCordClass(self, x, y):
+    def randomCordClassP(self, x, y):
         loopA = True
+        xStep = 10
+        yStep = 10
         while loopA:
-            xStep = random.randint(0,20)
-            yStep = random.randint(0,20)
-            pOrm = random.randint(0,1)
+            pOrm = random.randint(0, 1)
             if pOrm == 0:
                 xtestStep = x + xStep
                 ytestStep = y + yStep

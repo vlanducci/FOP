@@ -3,11 +3,8 @@
 # By Viola Landucci
 #
 
-from typing import Counter
-import pygame, sys
-import numpy as np
+import pygame
 import random
-from pygame.constants import SRCCOLORKEY
 from classes import *
 pygame.init()
 
@@ -60,24 +57,25 @@ predatorImage = pygame.transform.scale(predatorImage, (30, 30))
 
 
 # ----- Button Settings ------ #
-smallfont = pygame.font.SysFont('Corbel',35)
-smallsmallfont = pygame.font.SysFont('Corbel',20)
+smallfont = pygame.font.SysFont('Corbel', 35)
+smallsmallfont = pygame.font.SysFont('Corbel', 20)
 
 
 # ----- Setup and Functions ------ #
 
 # Setting up food random coordinates
 for i in range(4):
-    x = random.randint(30,729)
+    x = random.randint(30, 729)
     y = random.randint(160, 500)
-    newFood = Food(x,y)
+    newFood = Food(x, y)
     food.append(newFood)
 
 for i in range(4):
-    x = random.randint(30,729)
+    x = random.randint(30, 729)
     y = random.randint(160, 500)
-    newBed = Bed(x,y)
+    newBed = Bed(x, y)
     bed.append(newBed)
+
 
 # function for seeing if cat will sleep
 def sleep(list, chance):
@@ -87,6 +85,7 @@ def sleep(list, chance):
             list[i].sleep = True
             list[i].sleepCounter = 0
 
+
 # function for checking is predator kills cat
 def predKill(list, killList):
     for i in range(len(predator)):
@@ -95,12 +94,14 @@ def predKill(list, killList):
                 if list[e] not in killList:
                     killList.append(list[e])
 
+
 # function to find food source
 def findClosest(list):
-    i = random.randint(0,3)
-    closest = ((int(food[i].x)),(int(food[i].y)))
+    i = random.randint(0, 3)
+    closest = ((int(food[i].x)), (int(food[i].y)))
     list.closestDone = True
     return (closest)
+
 
 # function to go to food source
 def eatFood(list):
@@ -116,9 +117,9 @@ def eatFood(list):
         else:
             list.speed = 10
 
-        if abs((int(closest[1])-int(list.y))) != 0: 
+        if abs((int(closest[1])-int(list.y))) != 0:
             try:
-                list.x = int(list.x) + ((int(closest[0])-int(list.x))/abs((int(closest[0])-int(list.x))))*int(list.speed)                 
+                list.x = int(list.x) + ((int(closest[0])-int(list.x))/abs((int(closest[0])-int(list.x))))*int(list.speed)
             except ZeroDivisionError as err:
                 None
 
@@ -127,6 +128,7 @@ def eatFood(list):
                 list.y = int(list.y) + ((int(closest[1])-int(list.y))/abs((int(closest[1])-int(list.y))))*int(list.speed)
             except ZeroDivisionError as err:
                 None
+
 
 # checks if cat is on bed and if so, will sleep for short amount of time
 def checkBed(list):
@@ -137,47 +139,49 @@ def checkBed(list):
             list.speed = 10
         if ((int(list.x) - int(bed[i].x) < 20 and (int(list.x) - int(bed[i].x) > 0) or ((int(bed[i].x) - int(list.x) < 20) and (int(bed[i].x) - int(list.x) > 0))) and (int(list.y) - int(bed[i].y) < 20 and (int(list.y) - int(bed[i].x) > 0) or ((int(bed[i].y) - int(list.y) < 20) and (int(bed[i].y) - int(list.y) > 0)))):
             list.sleep = True
-            
+
 
 # function for making new cat sometimes when two adults meet
 def newCats(randCoord, xCoord, yCoord):
-    speed = random.randint(5,10)
-    hungry = random.randint(0,1)
-    attitude = random.randint(0,1)
-    hungryCounter = random.randint(11,22)
+    speed = random.randint(5, 10)
+    hungry = random.randint(0, 1)
+    hungryCounter = random.randint(11, 22)
     if randCoord == "yes":
-        x = random.randint(30,729)
+        x = random.randint(30, 729)
         y = random.randint(160, 500)
-        cat = YoungCat(x,y,speed,attitude, 0, 4, False, False, hungryCounter, 0, (0,0),False)
+        cat = YoungCat(x, y, speed, 0, 4, False, False, hungryCounter, 0, (0, 0), False)
     else:
-        cat = YoungCat(xCoord,yCoord,speed,attitude, 0, 4, False, False, hungryCounter, 0, (0,0), False)
-    young.append(cat) 
+        cat = YoungCat(xCoord, yCoord, speed, 0, 4, False, False, hungryCounter, 0, (0, 0), False)
+    young.append(cat)
+
 
 # function to draw grid
 def drawGrid():
-    blockSize = 30 #Set the size of the grid block
+    blockSize = 30  # Set the size of the grid block
     for x in range(20, 770, blockSize):
         for y in range(150, 540, blockSize):
             rect = pygame.Rect(x, y, blockSize, blockSize)
             pygame.draw.rect(screen, LorD, rect, 1)
 
+
 # Gets hill x and y from file
-fileobj = open('terrain.txt','r')
+fileobj = open('terrain.txt', 'r')
 for line in fileobj:
     split = line.split(",")
-    hillLocation = [int(split[0]),int(split[1])]
+    hillLocation = [int(split[0]), int(split[1])]
 fileobj.close()
+
 
 # ----- Main Program ------ #
 while loop1:
     screen.fill((DARK))
-    pygame.draw.rect(screen,(DARKLIGHT),[screenWidth/2/2+110,screenHeight/2,120,40])
-    
+    pygame.draw.rect(screen, (DARKLIGHT), [screenWidth/2/2+110, screenHeight/2, 120, 40])
+
     # Setting up display on screen eg.text
-    titleText = smallfont.render("CAT SIMULATION" , True , (DARKLIGHT))
-    continueText = smallfont.render("START" , True , (DARK))
-    screen.blit(titleText , (screenWidth/2/2+50,screenHeight/2-60))
-    screen.blit(continueText , (screenWidth/2/2+120,screenHeight/2+5))
+    titleText = smallfont.render("CAT SIMULATION", True, (DARKLIGHT))
+    continueText = smallfont.render("START", True, (DARK))
+    screen.blit(titleText, (screenWidth/2/2+50, screenHeight/2-60))
+    screen.blit(continueText, (screenWidth/2/2+120, screenHeight/2+5))
     # Finds whether user interacts with screen, and if user clicks in certain location, end loop and move on, or exit
     mouse = pygame.mouse.get_pos()
     for event in pygame.event.get():
@@ -192,20 +196,22 @@ while loop1:
             loop1 = False
     pygame.display.update()
 
+
 # create starting cats
 for _ in range(playersNum):
     newCats("yes", 0, 0)
 
+
 while loop:
-    # Counter, Population and Day Counter and determiner 
+    # Counter, Population and Day Counter and determiner
     population = len(young)+len(adult)+len(elderly)
     counter += 1
     day += 1
-    
+
     # Checks if has been a day depending on counter and if so, add 1 to days counter
     if day > 11:
         day = 0
-        days+=1
+        days += 1
     # checks if is day or night depending on day counter and setting values depending
     if day <= 6:
         DorN = "Day"
@@ -236,75 +242,74 @@ while loop:
             and 20 <= mouse[0] <= 20 + 140
             and screenHeight - 45 <= mouse[1] <= screenHeight - 45 + 40
         ):
-            newCats("yes",0,0)
+            newCats("yes", 0, 0)
         if (
             event.type == pygame.MOUSEBUTTONDOWN
             and 150 <= mouse[0] <= 150 + 140
             and screenHeight - 45 <= mouse[1] <= screenHeight - 45 + 40
         ):
-            x = random.randint(40,screenWidth-200)
+            x = random.randint(40, screenWidth-200)
             y = random.randint(200, screenHeight-200)
-            pred = Predator(x,y,0)
-            predator.append(pred) 
+            pred = Predator(x, y, 0)
+            predator.append(pred)
 
     # Setting Up Screen
     screen.fill((DARK))
     daysText = "Day: " + str(days)
-    counterText = smallfont.render(daysText , True , (DARKLIGHT))
-    DorNText = smallfont.render(DorN , True , (DARKLIGHT))
+    counterText = smallfont.render(daysText, True, (DARKLIGHT))
+    DorNText = smallfont.render(DorN, True, (DARKLIGHT))
     LorD = (DARKLIGHT)
 
     # Key
-    keyText = smallfont.render("Key:" , True , (DARKLIGHT))
-    keyText1 = smallsmallfont.render("- Orange Cat: Young Cat" , True , (DARKLIGHT))
-    keyText2 = smallsmallfont.render("- Brown Cat: Adult Cat" , True , (DARKLIGHT))
-    keyText3 = smallsmallfont.render("- Gray Cat: Elderly Cat" , True , (DARKLIGHT))
-    keyText4 = smallsmallfont.render("- Green Circle: Food" , True , (DARKLIGHT))
-    keyText5 = smallsmallfont.render("- Cream Circle: Bed" , True , (DARKLIGHT))
-    keyText7 = smallsmallfont.render("- Red Snake: Predator" , True , (DARKLIGHT))
-    keyText6 = smallsmallfont.render("- Gray Circle: Hill" , True , (DARKLIGHT))
-    screen.blit(keyText , (screenWidth-400,20))
-    screen.blit(keyText1 , (screenWidth-400,60))
-    screen.blit(keyText2 , (screenWidth-400,80))
-    screen.blit(keyText3 , (screenWidth-400,100))
-    screen.blit(keyText4 , (screenWidth-200,60))
-    screen.blit(keyText5 , (screenWidth-200,80))
-    screen.blit(keyText6 , (screenWidth-200,100))
-    screen.blit(keyText7 , (screenWidth-400,120))
+    keyText = smallfont.render("Key:", True, (DARKLIGHT))
+    keyText1 = smallsmallfont.render("- Orange Cat: Young Cat", True, (DARKLIGHT))
+    keyText2 = smallsmallfont.render("- Brown Cat: Adult Cat", True, (DARKLIGHT))
+    keyText3 = smallsmallfont.render("- Gray Cat: Elderly Cat", True, (DARKLIGHT))
+    keyText4 = smallsmallfont.render("- Green Circle: Food", True, (DARKLIGHT))
+    keyText5 = smallsmallfont.render("- Cream Circle: Bed", True, (DARKLIGHT))
+    keyText7 = smallsmallfont.render("- Red Snake: Predator", True, (DARKLIGHT))
+    keyText6 = smallsmallfont.render("- Gray Circle: Hill", True, (DARKLIGHT))
+    screen.blit(keyText, (screenWidth-400, 20))
+    screen.blit(keyText1, (screenWidth-400, 60))
+    screen.blit(keyText2, (screenWidth-400, 80))
+    screen.blit(keyText3, (screenWidth-400, 100))
+    screen.blit(keyText4, (screenWidth-200, 60))
+    screen.blit(keyText5, (screenWidth-200, 80))
+    screen.blit(keyText6, (screenWidth-200, 100))
+    screen.blit(keyText7, (screenWidth-400, 120))
 
     # Display Stats
-    stat1 = smallsmallfont.render(("- Young Cats: " + str(len(young))) , True , (DARKLIGHT))
-    stat2 = smallsmallfont.render(("- Adult Cats: " + str(len(adult))) , True , (DARKLIGHT))
-    stat3 = smallsmallfont.render(("- Elderly Cats: " + str(len(elderly))) , True , (DARKLIGHT))
-    stat4 = smallsmallfont.render(("- Predator: " + str(len(predator))) , True , (DARKLIGHT))
-    screen.blit(stat1 , (20,70))
-    screen.blit(stat2 , (20,90))
-    screen.blit(stat3 , (20,110))
-    screen.blit(stat4 , (180,110))
-
+    stat1 = smallsmallfont.render(("- Young Cats: " + str(len(young))), True, (DARKLIGHT))
+    stat2 = smallsmallfont.render(("- Adult Cats: " + str(len(adult))), True, (DARKLIGHT))
+    stat3 = smallsmallfont.render(("- Elderly Cats: " + str(len(elderly))), True, (DARKLIGHT))
+    stat4 = smallsmallfont.render(("- Predator: " + str(len(predator))), True, (DARKLIGHT))
+    screen.blit(stat1, (20, 70))
+    screen.blit(stat2, (20, 90))
+    screen.blit(stat3, (20, 110))
+    screen.blit(stat4, (180, 110))
 
     # Button
-    addText = smallfont.render('Add Cat' , True , (DARK))
-    predText = smallfont.render('Add Predator' , True , (DARK))
+    addText = smallfont.render('Add Cat', True, (DARK))
+    predText = smallfont.render('Add Predator', True, (DARK))
 
     # Button Display
-    pygame.draw.rect(screen,(DARKLIGHT),[20,screenHeight-45,120,40])
-    screen.blit(addText , (20,screenHeight-45))
+    pygame.draw.rect(screen, (DARKLIGHT), [20, screenHeight-45, 120, 40])
+    screen.blit(addText, (20, screenHeight-45))
 
     # Predator Button
-    pygame.draw.rect(screen,(DARKLIGHT),[150,screenHeight-45,190,40])
-    screen.blit(predText , (150,screenHeight-45))
+    pygame.draw.rect(screen, (DARKLIGHT), [150, screenHeight-45, 190, 40])
+    screen.blit(predText, (150, screenHeight-45))
 
     # Other Text and Displays
-    screen.blit(counterText , (20,20))
-    screen.blit(DorNText , (200,20))
+    screen.blit(counterText, (20, 20))
+    screen.blit(DorNText, (200, 20))
     drawGrid()
     # Draw circles for food and hill
-    pygame.draw.circle(screen,(84, 95, 102),hillLocation, 60)
+    pygame.draw.circle(screen, (84, 95, 102), hillLocation, 60)
     for i in range(len(food)):
-        pygame.draw.circle(screen,(142, 208, 129),[food[i].x,food[i].y], 10)
+        pygame.draw.circle(screen, (142, 208, 129), [food[i].x, food[i].y], 10)
     for i in range(len(bed)):
-        pygame.draw.circle(screen,(224, 208, 193),[bed[i].x,bed[i].y], 10)
+        pygame.draw.circle(screen, (224, 208, 193), [bed[i].x, bed[i].y], 10)
 
     for i in range(len(young)):
         screen.blit(youngPlayerImage, ((int(young[i].x)), (int(young[i].y))))
@@ -315,12 +320,12 @@ while loop:
         else:
             young[i].hungry = False
         # Adds to sleep counter depending is sleep == True and sleepCounter is smaller then 2
-        if young[i].sleep == True and young[i].sleepCounter < 2 and DorN == "Night":
-            young[i].sleepCounter +=1
+        if young[i].sleep is True and young[i].sleepCounter < 2 and DorN == "Night":
+            young[i].sleepCounter += 1
         else:
             # Checks if hungry and if so, check if closest point has been found, if not, find point, if yes, move towards point
-            if young[i].hungry == True:
-                if young[i].closestDone == True:
+            if young[i].hungry is True:
+                if young[i].closestDone is True:
                     eatFood(young[i])
                 else:
                     young[i].closest = findClosest(young[i])
@@ -338,18 +343,18 @@ while loop:
             young[i].speed = originalSpeed
 
         # Young Counters
-        young[i].counter +=1
+        young[i].counter += 1
         if young[i].hungryCounter > 0:
             young[i].hungryCounter -= 1
 
     for i in young:
         # Checks if cat has reached it minimum time for that age and gives it a chance to age up (become adult)
         if i.counter > 44 and len(young) > 0:
-            yOrn = random.randint(0,1)
-            speed = random.randint(10,15)
+            yOrn = random.randint(0, 1)
+            speed = random.randint(10, 15)
             if yOrn == 0:
                 young.remove(i)
-                cat = AdultCat(i.x,i.y,speed,i.attitude,0,i.sleepCounter, i.sleep,i.hungry,i.hungryCounter,0, (0,0), False)
+                cat = AdultCat(i.x, i.y, speed, 0, i.sleepCounter, i.sleep, i.hungry, i.hungryCounter, 0, (0, 0), False)
                 adult.append(cat)
 
     # Comments are same as the ones above for young cats
@@ -360,11 +365,11 @@ while loop:
             adult[i].hungry = True
         else:
             adult[i].hungry = False
-        if adult[i].sleep == True and adult[i].sleepCounter < 2 and DorN == "Night":
-            adult[i].sleepCounter +=1
+        if adult[i].sleep is True and adult[i].sleepCounter < 2 and DorN == "Night":
+            adult[i].sleepCounter += 1
         else:
-            if adult[i].hungry == True:
-                if adult[i].closestDone == True:
+            if adult[i].hungry is True:
+                if adult[i].closestDone is True:
                     eatFood(adult[i])
                 else:
                     adult[i].closest = findClosest(adult[i])
@@ -378,7 +383,7 @@ while loop:
             adult[i].speed = str(3)
         else:
             adult[i].speed = originalSpeed
-        
+
         if i+1 < len(adult):
             oldx = int(adult[i].x)
             newx = int(adult[i+1].x)
@@ -392,7 +397,7 @@ while loop:
                     adult[i+1].birthCounter = 11
 
         # Adult Counters
-        adult[i].counter +=1
+        adult[i].counter += 1
         if adult[i].hungryCounter > 0:
             adult[i].hungryCounter -= 1
         if adult[i].birthCounter > 0:
@@ -400,16 +405,16 @@ while loop:
 
     for i in adult:
         if i.counter > 44 and len(adult) > 0:
-            yOrn = random.randint(0,1)
-            speed = random.randint(3,6)
-            hungry = random.randint(0,1)
+            yOrn = random.randint(0, 1)
+            speed = random.randint(3, 6)
+            hungry = random.randint(0, 1)
             hungry = True if hungry == 0 else False
             if yOrn == 0:
                 adult.remove(i)
-                cat = ElderlyCat(i.x,i.y,speed,i.attitude,0,i.sleepCounter, i.sleep,i.hungry,i.hungryCounter,0, (0,0), False)
+                cat = ElderlyCat(i.x, i.y, speed, 0, i.sleepCounter, i.sleep, i.hungry, i.hungryCounter, 0, (0, 0), False)
                 elderly.append(cat)
 
-    # Comments are same as the ones for young cats except when elderly cat reaches is minimum max age if dose not move on to new cat, it dies 
+    # Comments are same as the ones for young cats except when elderly cat reaches is minimum max age if dose not move on to new cat, it dies
     for i in range(len(elderly)):
         screen.blit(elderlyPlayerImage, ((int(elderly[i].x)), (int(elderly[i].y))))
         checkBed(elderly[i])
@@ -417,11 +422,11 @@ while loop:
             elderly[i].hungry = True
         else:
             elderly[i].hungry = False
-        if elderly[i].sleep == True and elderly[i].sleepCounter < 2 and DorN == "Night":
-            elderly[i].sleepCounter +=1
+        if elderly[i].sleep is True and elderly[i].sleepCounter < 2 and DorN == "Night":
+            elderly[i].sleepCounter += 1
         else:
-            if elderly[i].hungry == True:
-                if elderly[i].closestDone == True:
+            if elderly[i].hungry is True:
+                if elderly[i].closestDone is True:
                     eatFood(elderly[i])
                 else:
                     elderly[i].closest = findClosest(elderly[i])
@@ -437,35 +442,34 @@ while loop:
             elderly[i].speed = originalSpeed
 
         # Elderly Counters
-        elderly[i].counter +=1
+        elderly[i].counter += 1
         if elderly[i].hungryCounter > 0:
             elderly[i].hungryCounter -= 1
 
     for i in elderly:
         if i.counter > 44 and len(elderly) > 0:
-            yOrn = random.randint(0,1)
+            yOrn = random.randint(0, 1)
             if yOrn == 0:
                 elderly.remove(i)
 
     # Code for predator
     for i in range(len(predator)):
         screen.blit(predatorImage, ((int(predator[i].x)), (int(predator[i].y))))
-        predator[i].randomCordClass(int(predator[i].x), int(predator[i].y))
+        predator[i].randomCordClassP(int(predator[i].x), int(predator[i].y))
 
         # Predator Counters
-        predator[i].counter +=1
+        predator[i].counter += 1
 
         # Predator Kill
         predKill(young, youngRemove)
         predKill(adult, adultRemove)
         predKill(elderly, elderlyRemove)
-    
+
     for i in predator:
         if i.counter >= 33:
             predator.remove(i)
 
-
-    # Error Preventing 
+    # Error Preventing
     for i in youngRemove:
         try:
             young.remove(i)
@@ -486,9 +490,8 @@ while loop:
         except ValueError as error:
             None
         elderlyRemove.remove(i)
-    
+
     # Waits for 700 millerseconds and updates screen
     pygame.time.wait(700)
     time = pygame.time.get_ticks()
     pygame.display.update()
-    
