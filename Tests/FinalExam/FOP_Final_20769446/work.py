@@ -1,61 +1,72 @@
-import sys
+import random
+import numpy as np
 import matplotlib.pyplot as plt
+#%matplotlib inline
 
-def getListK(dict):
-  return dict.keys()
-def getListV(dict):
-  return dict.values()
+class Bubble():
+    size = 20
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+        self.dx = random.randint(1,4) * random.choice([1,-1])
+        self.dy = random.randint(1,4) * random.choice([1,-1])
+        self.life = random.randint(10,15)
+        
+    def getstate(self):
+        return (self.x, self.y, self.size, self.life)
+        
+    def tic(self):
+        self.x += self.dx
+        self.y += self.dy
+        self.life -= 1
 
-punctuation = '~!@#$%^&*()_+{}|:"<>?`=[]\\;\',./'
-lCounter = 0
-uCounter = 0
-mCounter = 0
-bCounter = 0
-eCounter = 0
-rCounter = 0
-words = []
+def bplot(b, s):
+    plt.scatter(b, s, s=sizes)
+    plt.xlim(0,size-1)
+    plt.ylim(0,size-1)
+    plt.pause(1)
+    plt.clf()
 
-filename = 'data/scripts/lumberjack.txt'       # supplied in zip file
-book = open(filename).read()
-bookP = book.translate(str.maketrans('','',punctuation))
-split = bookP.lower().split()
+size = int(input("size: "))
+numbubbles = int(input("number of bubbles: "))
 
-for i in split:
-  letter = (i.lower())[0]
-  
-  if "l" in letter:
-    lCounter += 1
-    words.append(i)
-  if "u" in letter:
-    uCounter += 1
-    words.append(i)
-  if "m" in letter:
-    mCounter += 1
-    words.append(i)
-  if "b" in letter:
-    bCounter += 1
-    words.append(i)
-  if "e" in letter:
-    eCounter += 1
-    words.append(i)
-  if "r" in letter:
-    rCounter += 1
-    words.append(i)
+bubbles = []
+for i in range(numbubbles):
+    bubbles.append(Bubble(size/2, size/2))
 
-total = lCounter + uCounter + mCounter + bCounter + eCounter + rCounter
-print("\nTotal words that start with specified letters:\n" + str(total))
+totalPop = 0
+totalDep = 0
+count = 0
 
+xvalues = [b.getstate()[0] for b in bubbles]
+yvalues = [b.getstate()[1] for b in bubbles]
+bplot(xvalues, yvalues)
 
-word_counter = {}
-for word in words:
-  if word in word_counter:
-    word_counter[word] += 1
-  else:
-    word_counter[word] = 1
+while bubbles:
+    popped = []
+    for i in range(len(bubbles)):
+        b = bubbles[i]
+        b.tic()
+        gone = False
+        state = b.getstate()
+        if state[0] < 0 or state[0] >= size or state[1] < 0 or state[1] >= size:
+            print("departed")
+            gone = True
+            totalDep += 1
+        if state[3] < 0:
+            print("pop!!")
+            gone = True
+            totalPop += 1
+        if gone:
+            popped.append(i)
+    for j in range(len(popped)-1,-1, -1):
+        bubbles.pop(popped[j])
+    xvalues = [b.getstate()[0] for b in bubbles]
+    yvalues = [b.getstate()[1] for b in bubbles]
+    sizes = [b.getstate()[2] for b in bubbles]
+    bplot(xvalues,yvalues)
+    count +=1
 
-popular_words = sorted(word_counter, key = word_counter.get, reverse = True)
-print("\nMost common to least that included specified letters:")
-print(popular_words)
-
-plt.boxplot(getListK(word_counter),getListV(word_counter))
-plt.show
+print("Number of pops: " + str(totalPop))
+print("number of drifts: " + str(totalDep))
+print("number of iterations before all gone: " + str(count))
