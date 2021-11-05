@@ -42,4 +42,4 @@ plt.show()
 
 plt.title("Prac 3.1: Unconstrained Growth")
 plt.plot(times, pops, color="green")
-pilt.show() 
+plt.show() 
