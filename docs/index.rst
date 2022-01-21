@@ -1,5 +1,5 @@
 ==============
-Document Title
+Main
 ==============
 
 Synopsis
@@ -54,9 +54,9 @@ none
 
 2021 - initial version of FOP programs
 
-.. toctree::
+.. .. toctree::
 
-  index.rst
-  Practicals/index.rst
-  test/index.rst
+..   index.rst
+..   Practicals/index.rst
+..   test/index.rst
 
