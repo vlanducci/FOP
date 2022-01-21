@@ -6,7 +6,8 @@ Synopsis
 
 Practical 10 of Fundamentals of Programming COMP1005/500i5
 
-## Contents
+Contents
+========
 
 README - readme file for Practical 10
 
@@ -20,10 +21,12 @@ surveys.csv - survey data
 Prorams:
 test.py - random tests
 
-## Dependencies
+Dependencies
+============
 
 none
 
-## Version information
+Version information
+===================
 
 <today's date> - initial version of Practical 10 programs

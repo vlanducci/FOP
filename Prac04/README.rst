@@ -6,7 +6,8 @@ Synopsis
 
 Practical 4 of Fundamentals of Programming COMP1005/5005
 
-## Contents
+Contents
+========
 
 README - readme file for Practical 4
 zeros.py - creating and resizing an array
@@ -21,10 +22,12 @@ converter2.py - to convert between our temperature formats, will ask for the con
 temps.txt - inputs for converter.py
 tempsout.txt - outputs from converter.py
 
-## Dependencies
+Dependencies
+============
 
 none
 
-## Version information
+Version information
+===================
 
 <today's date> - initial version of Practical 4 programs

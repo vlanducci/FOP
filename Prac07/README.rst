@@ -6,7 +6,8 @@ Synopsis
 
 Practical 7 of Fundamentals of Programming COMP1005/500i5
 
-## Contents
+Contents
+========
 
 README - readme file for Practical 7
 
@@ -21,10 +22,12 @@ shelter.py - uses classes to assign animals
 Data:
 people.csv - people data
 
-## Dependencies
+Dependencies
+============
 
 none
 
-## Version information
+Version information
+===================
 
 <today's date> - initial version of Practical 7 programs

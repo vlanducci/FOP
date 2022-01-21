@@ -6,7 +6,8 @@ Synopsis
 
 Practical 9 of Fundamentals of Programming COMP1005/500i5
 
-## Contents
+Contents
+========
 
 README - readme file for Practical 9
 
@@ -23,10 +24,12 @@ Data:
 surveys.csv - survey data
 rumple.txt - script data
 
-## Dependencies
+Dependencies
+============
 
 none
 
-## Version information
+Version information
+===================
 
 <today's date> - initial version of Practical 9 programs

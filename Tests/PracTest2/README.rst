@@ -4,11 +4,13 @@ Practical Test 02
 Name: Viola Landucci
 Student Id: 20769446
 
-## Synopsis
+Synopsis
+========
 
 Practical Test 2 of Fundamentals of Programming COMP1005/5005i
 
-## Contents
+Contents
+========
 
 README - readme file for Practical test 2
 
@@ -19,10 +21,12 @@ PracTest1
 test2.py - Extend this code with arrays and plotting
 hist.txt - history of commands
 
-## Dependencies
+Dependencies
+============
 
 none
 
-## Version information
+Version information
+===================
 
 <12/08/2021> - initial version of Practical test 2 programs
