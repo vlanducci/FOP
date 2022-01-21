@@ -1,7 +1,9 @@
-"""""""""""""""""
+
 Document Title
-"""""""""""""""""
-## Synopsis
+==============
+
+Synopsis
+--------
 
 Practical, Assigment, and Test work for FOP course (2021)
 
