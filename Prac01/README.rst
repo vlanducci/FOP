@@ -1,4 +1,8 @@
-## Synopsis
+Practical 01
+============
+
+Synopsis
+--------
 
 Practical 1 of Fundamentals of Programming COMP1005/5005
 
