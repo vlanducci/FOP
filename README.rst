@@ -14,34 +14,44 @@ README - readme file for FOP course (2021)
 Practicals
 ==========
 
-Prac1 - Introduction
+:doc:`Prac1 - Introduction<Prac01/README>`
 
-Prac2 - Strings and ListsPrac02
+:doc:`Prac2 - Strings and Lists<Prac02/README>`
 
-Prac3 - Array and PlottingPrac03
+:doc:`Prac3 - Array and Plotting<Prac03/README>`
 
-Prac4 - Multi-dimensional Arrays and FunctionsPrac04
+:doc:`Prac4 - Multi-dimensional Arrays and Functions<Prac04/README>`
 
-Prac5 - Files and GridsPrac05
+:doc:`Prac5 - Files and Grids<Prac05/README>`
 
-Prac6 - Modelling the World with ObjectsPrac06
+:doc:`Prac6 - Modelling the World with Objects<Prac06/README>`
 
-Prac7 - Object Relationships and Exception HandlingPrac07
+:doc:`Prac7 - Object Relationships and Exception Handling<Prac07/README>`
 
-Prac8 - Scripts and AutomationPrac08
+:doc:`Prac8 - Scripts and Automation<Prac08/README>`
 
-Prac9 - Working with Structured DataPrac09
+:doc:`Prac9 - Working with Structured Data<Prac09/README>`
 
-Prac10 - Presenting Structured DataPrac10
+:doc:`Prac10 - Presenting Structured Data<Prac10/PresentingData/README>`
 
-Prac11 - Projects in PythonPrac11
+:doc:`Prac11 - Projects in Python<Prac11/README>`
 
 Prac12 - Revision and BeyondPrac12
 
 Tests and Assigments Tests - FOP test entries
 =============================================
 
-Assigments - FOP assigments
+:doc:`Assigments - FOP assigments<Assigments/Assigment1/FOP_Assignment_20769446/README>`
+
+:doc:`PracTest1 <Tests/PracTest1/README>`
+
+:doc:`PracTest2 <Tests/PracTest2/README>`
+
+:doc:`PracTest3 <Tests/PracTest3/README>`
+
+:doc:`PracTest4 <Tests/PracTest4/README>`
+
+:doc:`PracTest5 <Tests/PracTest5/README>`
 
 Dependencies
 ============

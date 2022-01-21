@@ -61,7 +61,6 @@ contents 7 contents 8 contents 9
    :caption: Test
 
    README.rst
-   test.rst
 
 .. toctree::
    :maxdepth: 2
