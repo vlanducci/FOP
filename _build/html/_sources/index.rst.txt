@@ -11,14 +11,6 @@ Welcome to FOP's documentation!
 .. toctree::
    :maxdepth: 2
    :hidden:
-   :caption: Test
-
-   README.rst
-   test.rst
-
-.. toctree::
-   :maxdepth: 2
-   :hidden:
    :caption: Practicals
 
    Prac01/README.rst
