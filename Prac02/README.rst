@@ -1,12 +1,13 @@
-Overview
-++++++++
+Practical 02
+++++++++++++
 
 Synopsis
 ========
 
 Practical 2 of Fundamentals of Programming COMP1005/5005
 
-## Contents
+Contents
+========
 
 README - readme file for Practical 2
 strings1.py - read in a string and print it in reverse using a loop and method call
@@ -24,11 +25,13 @@ assorted.py - selecting random biscuits from a pack
 bingoCard.py - generates a bigo card with random numbers (testing different method)
 triangle.py - work out area of triangle
 
-## Dependencies
+Dependencies
+============
 
 none
 
-## Version information
+Version information
+===================
 
 <today's date> - initial version of Practical 2 programs
 

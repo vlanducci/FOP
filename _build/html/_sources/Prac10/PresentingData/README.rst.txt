@@ -1,5 +1,8 @@
+Practical 10
+++++++++++++
+
 Synopsis
-++++++++
+========
 
 Practical 10 of Fundamentals of Programming COMP1005/500i5
 

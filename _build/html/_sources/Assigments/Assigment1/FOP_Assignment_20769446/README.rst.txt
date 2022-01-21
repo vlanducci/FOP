@@ -4,13 +4,15 @@ FOP Cat Assigment
 Name: Viola Landucci
 Student Id: 20769446
 
-## Synopsis
+Synopsis
+========
 
 Assessment 1 of Fundamentals of Programming COMP1005/500i5
 
 Cat Simulation - Simulation of cats and there behavior
 
-## Contents
+Contents
+========
 
 README - readme file for Assessment 1
 
@@ -23,16 +25,19 @@ main.py - Contains the code for the execution of the cat simulation, including v
 Data:
 terrain.txt - hills x and y data
 
-## Dependencies
+Dependencies
+============
 
 pygame - pip install pygame - https://www.pygame.org/ - used to create display
 random - allows use of creating random values
 
-## Running Program
+Running Program
+===============
 
 1) make sure pygame is installed
 2) run main.py program
 
-## Version information
+Version information
+===================
 
 <10/10/2021> - initial version of Assessment 1 programs

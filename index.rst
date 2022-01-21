@@ -6,7 +6,54 @@
 Welcome to FOP's documentation!
 ===============================
 
+**Bold**
+
+*Italic*
+
+.. note::
+   Box
+
+.. image is showing error but it actually works dont worry, same with code block
+.. image:: /ReadTheDocsImages/Bingus.jpg
+
+
+Testing code block:
+
+.. code-block:: python
+
+   output = "Hello World"
+   print(output)
+
+.. there are other ways of doing tabels but just search them up
+
+========== ========== ==========
+Header 1   Header 2   Header 3
+========== ========== ==========
+contents 1 contents 2 contents 3
+contents 4 contents 5 contents 6
+contents 7 contents 8 contents 9
+========== ========== ==========
+
+.. list-table:: Table Test 2
+   :widths: 30 30 30
+   :header-rows: 1
+   :class: tight_table
+
+   * - Header 1
+     - Header 2
+     - Header 3
+   * - contents 1
+     - contents 2
+     - contents 3
+   * - contents 4
+     - contents 5
+     - contents 6
+   * - contents 7
+     - contents 8
+     - contents 9
+
 .. :hidden: hides table of contents
+.. If it is freaking out then just delete html file and re-make it
 
 .. toctree::
    :maxdepth: 2

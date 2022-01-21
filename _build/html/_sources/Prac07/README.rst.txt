@@ -1,5 +1,8 @@
+Practical 07
+++++++++++++
+
 Synopsis
-++++++++
+========
 
 Practical 7 of Fundamentals of Programming COMP1005/500i5
 

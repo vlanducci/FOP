@@ -11,29 +11,32 @@ Contents
 
 README - readme file for FOP course (2021)
 
-### Practicals [Prac1 - Introduction](Prac01/)
+Practicals
+==========
 
-[Prac2 - Strings and Lists](Prac02/)
+Prac1 - Introduction
 
-[Prac3 - Array and Plotting](Prac03/)
+Prac2 - Strings and ListsPrac02
 
-[Prac4 - Multi-dimensional Arrays and Functions](Prac04/)
+Prac3 - Array and PlottingPrac03
 
-[Prac5 - Files and Grids](Prac05/)
+Prac4 - Multi-dimensional Arrays and FunctionsPrac04
 
-[Prac6 - Modelling the World with Objects](Prac06/)
+Prac5 - Files and GridsPrac05
 
-[Prac7 - Object Relationships and Exception Handling](Prac07/)
+Prac6 - Modelling the World with ObjectsPrac06
 
-[Prac8 - Scripts and Automation](Prac08/)
+Prac7 - Object Relationships and Exception HandlingPrac07
 
-[Prac9 - Working with Structured Data](Prac09/)
+Prac8 - Scripts and AutomationPrac08
 
-[Prac10 - Presenting Structured Data](Prac10/)
+Prac9 - Working with Structured DataPrac09
 
-[Prac11 - Projects in Python](Prac11/)
+Prac10 - Presenting Structured DataPrac10
 
-[Prac12 - Revision and Beyond](Prac12/)
+Prac11 - Projects in PythonPrac11
+
+Prac12 - Revision and BeyondPrac12
 
 Tests and Assigments Tests - FOP test entries
 =============================================

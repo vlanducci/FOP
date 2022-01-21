@@ -1,9 +1,13 @@
+Practical 03
+++++++++++++
+
 Synopsis
-++++++++
+========
 
 Practical 3 of Fundamentals of Programming COMP1005/5005
 
-## Contents
+Contents
+========
 
 README - readme file for Practical 3
 newGrowth.py - simulation of unconstrained growth
@@ -16,10 +20,11 @@ numbersarray.py - Read ten numbers give sum, min, max & mean in bar graph
 repeatdosage.py - simulation of repeated dosages
 skipdosage.py - simulation of skip dosages
 
-## Dependencies
+Dependencies
+============
 
 none
 
-## Version information
+Version information
 
 <today's date> - initial version of Practical 3 programs

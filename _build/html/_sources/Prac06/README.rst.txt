@@ -1,5 +1,8 @@
+Practical 06
+++++++++++++
+
 Synopsis
-++++++++
+========
 
 Practical 6 of Fundamentals of Programming COMP1005/500i5
 

@@ -12,7 +12,7 @@ Practical Test 1 of Fundamentals of Programming COMP1005/5005
 
 README - readme file for Practical test 1
 
-PracTest1
+.. PracTest1
     |__	The
     |	 |_____	Meaning
     |	 | 	   |__	Of

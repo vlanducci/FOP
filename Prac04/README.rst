@@ -1,5 +1,8 @@
+Practical 04
+++++++++++++
+
 Synopsis
-++++++++
+========
 
 Practical 4 of Fundamentals of Programming COMP1005/5005
 

@@ -1,5 +1,8 @@
+Practical 08
+++++++++++++
+
 Synopsis
-++++++++
+========
 
 Practical 8 of Fundamentals of Programming COMP1005/500i5
 
