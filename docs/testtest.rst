@@ -1,3 +1,7 @@
+
+Something
+=========
+
 .. toctree::
 
   test/test.rst
