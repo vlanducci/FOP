@@ -1,11 +1,5 @@
 .. toctree::
 
-  whatsnew/index.rst
-  tutorial/index.rst
-  faq/index.rst
-  glossary.rst
+  test/test.rst
 
-  about.rst
-  bugs.rst
-  copyright.rst
-  license.rst
+  index.rst
