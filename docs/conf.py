@@ -14,7 +14,6 @@ source_suffix = '.rst'
 master_doc = 'index'
 exclude_patterns = []
 add_function_parentheses = True
-extensions = ["myst_parser"]
 #add_module_names = True
 # A list of ignored prefixes for module index sorting.
 #modindex_common_prefix = []
