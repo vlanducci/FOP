@@ -55,6 +55,6 @@ none
 
 .. toctree::
 
-  .. Practicals/test.rst
-  Prac01/README.rst
+  Practicals/index.rst
+  .. /README.rst
 
