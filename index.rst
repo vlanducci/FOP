@@ -78,16 +78,17 @@ contents 7 contents 8 contents 9
    Prac09/README.rst
    Prac10/PresentingData/README.rst
    Prac11/README.rst
-   Assigments/Assigment1/FOP_Assignment_20769446/README.rst
 
 .. toctree::
    :maxdepth: 2
    :hidden:
-   :caption: Tests
+   :caption: Tests and Assigments
 
-   Tests/FinalExam/FOP_Final_20769446/README.rst
    Tests/PracTest1/README.rst
    Tests/PracTest2/README.rst
    Tests/PracTest3/README.rst
    Tests/PracTest4/README.rst
    Tests/PracTest5/README.rst
+
+   Tests/FinalExam/FOP_Final_20769446/README.rst
+   Assigments/Assigment1/FOP_Assignment_20769446/README.rst

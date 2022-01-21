@@ -26,5 +26,6 @@ Dependencies
 none
 
 Version information
+===================
 
 <today's date> - initial version of Practical 3 programs

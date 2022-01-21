@@ -6,7 +6,8 @@ Synopsis
 
 Practical 5 of Fundamentals of Programming COMP1005/500i5
 
-## Contents
+Contents
+========
 
 README - readme file for Practical 5
 heat.py - heat diffusion simulation
@@ -22,10 +23,12 @@ marchweatherfull.csv - full march weather data
 heatsource.csv - heat data
 marchout.csv - 
 
-## Dependencies
+Dependencies
+============
 
 none
 
-## Version information
+Version information
+===================
 
 <today's date> - initial version of Practical 5 programs

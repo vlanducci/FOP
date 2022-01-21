@@ -6,7 +6,8 @@ Synopsis
 
 Practical 6 of Fundamentals of Programming COMP1005/500i5
 
-## Contents
+Contents
+========
 
 README - readme file for Practical 6
 
@@ -24,10 +25,12 @@ testCat.py - test cat class in animals file and somewhat implements them
 Data:
 animals.csv - animal data
 
-## Dependencies
+Dependencies
+============
 
 none
 
-## Version information
+Version information
+===================
 
 <today's date> - initial version of Practical 6 programs

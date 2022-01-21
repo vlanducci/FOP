@@ -6,7 +6,8 @@ Synopsis
 
 Practical 8 of Fundamentals of Programming COMP1005/500i5
 
-## Contents
+Contents
+========
 
 README - readme file for Practical 8
 
@@ -21,10 +22,12 @@ OneCompartDilantin.py - python program
 repeatdosageP.py - simulation
 
 
-## Dependencies
+Dependencies
+============
 
 none
 
-## Version information
+Version information
+===================
 
 <today's date> - initial version of Practical 8 programs
