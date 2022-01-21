@@ -82,7 +82,7 @@ contents 7 contents 8 contents 9
 .. toctree::
    :maxdepth: 2
    :hidden:
-   :caption: Tests and Assigments
+   :caption: Tests and Assignments
 
    Tests/PracTest1/README.rst
    Tests/PracTest2/README.rst
