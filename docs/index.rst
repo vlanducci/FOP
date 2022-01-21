@@ -6,12 +6,14 @@ Synopsis
 
 Practical, Assigment, and Test work for FOP course (2021)
 
-## Contents
+Contents
+--------
 
 README - readme file for FOP course (2021)
 
 
-### Practicals
+Practicals
+----------
 [Prac1 - Introduction](Prac01/)
 
 [Prac2 - Strings and Lists](Prac02/)
@@ -37,7 +39,8 @@ README - readme file for FOP course (2021)
 [Prac12 - Revision and Beyond](Prac12/)
 
 
-### Tests and Assigments
+Tests and Assigments
+--------------------
 Tests - FOP test entries
 
 Assigments - FOP assigments
@@ -49,3 +52,9 @@ none
 ## Version information
 
 2021 - initial version of FOP programs
+
+.. toctree::
+
+  test/test.rst
+
+  index.rst
